@@ -10,16 +10,14 @@ class Account {
     var accountId: Long = 0
 
     @JsonProperty(required = true)
-    var customerName: String? = null
-        private set
+    lateinit var customerName: String
 
     @JsonProperty(required = true)
-    var balance: BigDecimal? = null
-        private set
+    lateinit var balance: BigDecimal
 
     @JsonProperty(required = true)
-    var currencyCode: String? = null
-        private set
+    lateinit var currencyCode: String
+
 
     constructor() {}
 
@@ -40,19 +38,21 @@ class Account {
         if (this === o) return true
         if (o == null || javaClass != o.javaClass) return false
 
-        val account = o as Account?
+        val account = o as Account
 
-        if (accountId != account!!.accountId) return false
+        if (accountId != account.accountId) return false
         if (customerName != account.customerName) return false
-        return if (balance != account.balance) false else currencyCode == account.currencyCode
+        return if (balance != account.balance) false else {
+            currencyCode == account.currencyCode
+        }
 
     }
 
     override fun hashCode(): Int {
         var result = (accountId xor accountId.ushr(32)).toInt()
-        result = 31 * result + customerName!!.hashCode()
-        result = 31 * result + balance!!.hashCode()
-        result = 31 * result + currencyCode!!.hashCode()
+        result = 31 * result + customerName.hashCode()
+        result = 31 * result + balance.hashCode()
+        result = 31 * result + currencyCode.hashCode()
         return result
     }
 

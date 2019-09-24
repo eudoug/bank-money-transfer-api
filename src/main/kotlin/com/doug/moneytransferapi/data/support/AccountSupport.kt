@@ -22,15 +22,15 @@ class AccountSupport : AccountDataObject {
     override val allAccounts: List<Account>
         @Throws(ExceptionHandler::class)
         get() {
-            var conn: Connection? = null
-            var stmt: PreparedStatement? = null
-            var rs: ResultSet? = null
+            lateinit var conn: Connection
+            lateinit var stmt: PreparedStatement
+            lateinit var rs: ResultSet
             val allAccounts = ArrayList<Account>()
             try {
                 conn = DataFactory.getConnection()
                 stmt = conn.prepareStatement(SQL_GET_ALL_ACC)
                 rs = stmt.run { executeQuery() }
-                while (rs.next()) {
+                while (rs.run { next() }) {
                     val acc = Account(
                         rs.getLong("AccountId"), rs.getString("CustomerName"),
                         rs.getBigDecimal("Balance"), rs.getString("CurrencyCode")
@@ -52,16 +52,16 @@ class AccountSupport : AccountDataObject {
      */
     @Throws(ExceptionHandler::class)
     override fun getAccountById(accountId: Long): Account {
-        var conn: Connection? = null
-        var stmt: PreparedStatement? = null
-        var rs: ResultSet? = null
-        var acc: Account? = null
+        lateinit var conn: Connection
+        lateinit var stmt: PreparedStatement
+        lateinit var rs: ResultSet
+        lateinit var acc: Account
         try {
             conn = DataFactory.getConnection()
             stmt = conn.prepareStatement(SQL_GET_ACC_BY_ID)
             stmt.setLong(1, accountId)
             rs = stmt.executeQuery()
-            if (rs.next()) {
+            if (rs.run { next() }) {
                 acc = Account(
                     rs.getLong("AccountId"), rs.getString("CustomerName"), rs.getBigDecimal("Balance"),
                     rs.getString("CurrencyCode")
@@ -69,7 +69,7 @@ class AccountSupport : AccountDataObject {
                 if (log.isDebugEnabled)
                     log.debug("Retrieve Account By Id: $acc")
             }
-            return acc!!
+            return acc
         } catch (e: SQLException) {
             throw ExceptionHandler("getAccountById(): Error reading account data", e)
         } finally {
@@ -83,9 +83,9 @@ class AccountSupport : AccountDataObject {
      */
     @Throws(ExceptionHandler::class)
     override fun createAccount(account: Account): Long {
-        var conn: Connection? = null
-        var stmt: PreparedStatement? = null
-        var generatedKeys: ResultSet? = null
+        lateinit var conn: Connection
+        lateinit var stmt: PreparedStatement
+        lateinit var generatedKeys: ResultSet
         try {
             conn = DataFactory.getConnection()
             stmt = conn.prepareStatement(SQL_CREATE_ACC)
@@ -98,7 +98,7 @@ class AccountSupport : AccountDataObject {
                 throw ExceptionHandler("Account Cannot be created")
             }
             generatedKeys = stmt.generatedKeys
-            if (generatedKeys!!.next()) {
+            if (generatedKeys.next()) {
                 return generatedKeys.getLong(1)
             } else {
                 log.error("Creating account failed, no ID obtained.")
@@ -117,8 +117,8 @@ class AccountSupport : AccountDataObject {
      */
     @Throws(ExceptionHandler::class)
     override fun deleteAccountById(accountId: Long): Int {
-        var conn: Connection? = null
-        var stmt: PreparedStatement? = null
+        lateinit var conn: Connection
+        lateinit var stmt: PreparedStatement
         try {
             conn = DataFactory.getConnection()
             stmt = conn.prepareStatement(SQL_DELETE_ACC_BY_ID)
@@ -137,11 +137,11 @@ class AccountSupport : AccountDataObject {
      */
     @Throws(ExceptionHandler::class)
     override fun updateAccountBalance(accountId: Long, deltaAmount: BigDecimal): Int {
-        var conn: Connection? = null
-        var lockStmt: PreparedStatement? = null
-        var updateStmt: PreparedStatement? = null
-        var rs: ResultSet? = null
-        var targetAccount: Account? = null
+        lateinit var conn: Connection
+        lateinit var lockStmt: PreparedStatement
+        lateinit var updateStmt: PreparedStatement
+        lateinit var rs: ResultSet
+        lateinit var targetAccount: Account
         var updateCount = -1
         try {
             conn = DataFactory.getConnection()
@@ -150,7 +150,7 @@ class AccountSupport : AccountDataObject {
             lockStmt = conn.prepareStatement(SQL_LOCK_ACC_BY_ID)
             lockStmt.setLong(1, accountId)
             rs = lockStmt.executeQuery()
-            if (rs!!.next()) {
+            if (rs.run { next() }) {
                 targetAccount = Account(
                     rs.getLong("AccountId"), rs.getString("CustomerName"),
                     rs.getBigDecimal("Balance"), rs.getString("CurrencyCode")
@@ -159,17 +159,14 @@ class AccountSupport : AccountDataObject {
                     log.debug("updateAccountBalance from Account: $targetAccount")
             }
 
-            if (targetAccount == null) {
-                throw ExceptionHandler("updateAccountBalance(): fail to lock account : $accountId")
-            }
             // update account upon success locking
-            val balance = targetAccount.balance?.add(deltaAmount)
-            if (balance!! < MoneyTransaction.zeroAmount) {
+            val balance = targetAccount.balance.add(deltaAmount)
+            if (balance < MoneyTransaction.zeroAmount) {
                 throw ExceptionHandler("Not sufficient Fund for account: $accountId")
             }
 
             updateStmt = conn.prepareStatement(SQL_UPDATE_ACC_BALANCE)
-            updateStmt!!.setBigDecimal(1, balance)
+            updateStmt.setBigDecimal(1, balance)
             updateStmt.setLong(2, accountId)
             updateCount = updateStmt.executeUpdate()
             conn.commit()
@@ -180,7 +177,7 @@ class AccountSupport : AccountDataObject {
             // rollback transaction if exception occurs
             log.error("updateAccountBalance(): Customer Transaction Failed, rollback initiated for: $accountId", se)
             try {
-                conn?.rollback()
+                conn.rollback()
             } catch (re: SQLException) {
                 throw ExceptionHandler("Fail to rollback transaction", re)
             }
@@ -200,12 +197,12 @@ class AccountSupport : AccountDataObject {
     @Throws(ExceptionHandler::class)
     override fun transferAccountBalance(customerTransaction: CustomerTransaction): Int {
         var result = -1
-        var conn: Connection? = null
-        var lockStmt: PreparedStatement? = null
-        var updateStmt: PreparedStatement? = null
-        var rs: ResultSet? = null
-        var fromAccount: Account? = null
-        var toAccount: Account? = null
+        lateinit var conn: Connection
+        lateinit var lockStmt: PreparedStatement
+        lateinit var updateStmt: PreparedStatement
+        lateinit var rs: ResultSet
+        lateinit var fromAccount: Account
+        lateinit var toAccount: Account
 
         try {
             conn = DataFactory.getConnection()
@@ -214,7 +211,7 @@ class AccountSupport : AccountDataObject {
             lockStmt = conn.prepareStatement(SQL_LOCK_ACC_BY_ID)
             lockStmt.setLong(1, customerTransaction.fromAccountId!!)
             rs = lockStmt.executeQuery()
-            if (rs!!.next()) {
+            if (rs.run { next() }) {
                 fromAccount = Account(
                     rs.getLong("AccountId"), rs.getString("CustomerName"),
                     rs.getBigDecimal("Balance"), rs.getString("CurrencyCode")
@@ -223,9 +220,9 @@ class AccountSupport : AccountDataObject {
                     log.debug("""transferAccountBalance from Account: $fromAccount""")
             }
             lockStmt = conn.prepareStatement(SQL_LOCK_ACC_BY_ID)
-            lockStmt!!.setLong(1, customerTransaction.toAccountId!!)
+            lockStmt.setLong(1, customerTransaction.toAccountId!!)
             rs = lockStmt.executeQuery()
-            if (rs!!.next()) {
+            if (rs.next()) {
                 toAccount = Account(
                     rs.getLong("AccountId"), rs.getString("CustomerName"), rs.getBigDecimal("Balance"),
                     rs.getString("CurrencyCode")
@@ -234,37 +231,32 @@ class AccountSupport : AccountDataObject {
                     log.debug("""transferAccountBalance to Account: $toAccount""")
             }
 
-            // check locking status
-            if (fromAccount == null || toAccount == null) {
-                throw ExceptionHandler("Fail to lock both accounts for write")
-            }
-
             // check transaction currency
-            if (!fromAccount.currencyCode.equals(customerTransaction.currencyCode)) {
+            if (fromAccount.currencyCode != customerTransaction.currencyCode) {
                 throw ExceptionHandler(
                     "Fail to transfer Fund, transaction ccy are different from source/destination"
                 )
             }
 
             // check ccy is the same for both accounts
-            if (!fromAccount.currencyCode.equals(toAccount.currencyCode)) {
+            if (fromAccount.currencyCode != toAccount.currencyCode) {
                 throw ExceptionHandler(
                     "Fail to transfer Fund, the source and destination account are in different currency"
                 )
             }
 
             // check enough fund in source account
-            val fromAccountLeftOver = fromAccount.balance?.subtract(customerTransaction.amount)
+            val fromAccountLeftOver = fromAccount.balance.subtract(customerTransaction.amount)
             if (fromAccountLeftOver?.compareTo(MoneyTransaction.zeroAmount)!! < 0) {
                 throw ExceptionHandler("Not enough Fund from source Account ")
             }
 
             // proceed with update
             updateStmt = conn.prepareStatement(SQL_UPDATE_ACC_BALANCE)
-            updateStmt!!.setBigDecimal(1, fromAccountLeftOver)
+            updateStmt.setBigDecimal(1, fromAccountLeftOver)
             updateStmt.setLong(2, customerTransaction.fromAccountId)
             updateStmt.addBatch()
-            updateStmt.setBigDecimal(1, toAccount.balance?.add(customerTransaction.amount))
+            updateStmt.setBigDecimal(1, toAccount.balance.add(customerTransaction.amount))
             updateStmt.setLong(2, customerTransaction.toAccountId)
             updateStmt.addBatch()
             val rowsUpdated = updateStmt.executeBatch()
@@ -281,7 +273,7 @@ class AccountSupport : AccountDataObject {
                 se
             )
             try {
-                conn?.rollback()
+                conn.rollback()
             } catch (re: SQLException) {
                 throw ExceptionHandler("Fail to rollback transaction", re)
             }

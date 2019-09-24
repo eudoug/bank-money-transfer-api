@@ -10,11 +10,11 @@ class Customer {
 
 
     @JsonProperty(required = true)
-    private var customerName: String? = null
+    private lateinit var customerName: String
 
 
     @JsonProperty(required = true)
-    private var emailAddress: String? = null
+    private lateinit var emailAddress: String
 
 
     constructor() {}
@@ -34,11 +34,11 @@ class Customer {
         return customerId
     }
 
-    fun getCustomerName(): String? {
+    fun getCustomerName(): String {
         return customerName
     }
 
-    fun getEmailAddress(): String? {
+    fun getEmailAddress(): String {
         return emailAddress
     }
 
@@ -55,8 +55,8 @@ class Customer {
 
     override fun hashCode(): Int {
         var result = (customerId xor customerId.ushr(32)).toInt()
-        result = 31 * result + customerName!!.hashCode()
-        result = 31 * result + emailAddress!!.hashCode()
+        result = 31 * result + customerName.hashCode()
+        result = 31 * result + emailAddress.hashCode()
         return result
     }
 
