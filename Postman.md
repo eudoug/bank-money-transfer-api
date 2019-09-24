@@ -4,7 +4,7 @@ The following steps outline the necessary actions in order for you to install Po
 
 If you prefer, you can explore our API with other tools like curl.
 
-###Install Postman
+### Install Postman
 
 Visit Postman website and download the version of Postman required for your platform
 
