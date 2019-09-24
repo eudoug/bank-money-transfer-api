@@ -20,10 +20,10 @@ producing, consuming, and visualizing RESTful web services)
 Program Language: Kotlin and Java 11
 
 Development Process: TDD (A software development process that relies on the repetition 
-of a very short development cycle)
+of a very short development cycle, when tests are created before the feature, granting 100% coverage)
 
 Deployment: Docker (A set of platform-as-a-service (PaaS) products that use OS-level 
-virtualization to deliver software in packages called containers.
+virtualization to deliver software in packages called containers)
 
 Container: Jetty (Jetty is a HTTP server and Container Servlet 100% written in Java)
 
