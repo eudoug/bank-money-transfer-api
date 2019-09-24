@@ -7,8 +7,8 @@ import com.doug.moneytransferapi.service.CustomerService;
 import com.doug.moneytransferapi.service.ExceptionService;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.servlet.*;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.servlet.ServletContainer;
 
 public class Application {
@@ -30,6 +30,19 @@ public class Application {
     private static void startService() throws Exception {
         Server server = new Server(8081);
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        ServletHandler handler = new ServletHandler();
+
+        FilterHolder filter = new FilterHolder();
+        filter.setInitParameter("allowedOrigins", "http://localhost:8081,https://editor.swagger.io/");
+        filter.setInitParameter("allowedMethods", "POST,GET,OPTIONS,PUT,DELETE,HEAD");
+        filter.setInitParameter("allowedHeaders", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
+        filter.setInitParameter("preflightMaxAge", "728000");
+        filter.setInitParameter("allowCredentials", "true");
+        CrossOriginFilter corsFilter = new CrossOriginFilter();
+        filter.setFilter(corsFilter);
+
+        handler.addFilter(filter);
+
         context.setContextPath("/");
         server.setHandler(context);
 
