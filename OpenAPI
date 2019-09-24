@@ -1,0 +1,339 @@
+openapi: 3.0.0
+info:
+  description: |
+    This is a REST API for money transfer between accounts
+  version: "1.0.0"
+  title: Money Transfer API
+  contact:
+    email: eudoug@gmail.com
+servers:
+  - description: Money Transfer Server API
+    url: http://localhost:8081
+tags:
+  - name: customer
+    description: Operations related to the customers from the bank
+  - name: account
+    description: Operations related to the customer's accounts from the bank
+  - name: transaction
+    description: Operations related to money transactions
+paths:
+  /customer/create:
+    post:
+      tags:
+        - customer
+      summary: Create a new customer
+      description: Create a new customer using fields provided
+      operationId: addCustomer
+      responses:
+        '400':
+          description: Invalid resource supplied
+      requestBody:
+        $ref: '#/components/requestBodies/Customer'
+  /customer/{customerId}:
+    put:
+      tags:
+        - customer
+      summary: Update an existing customer
+      description: Update an existing customer by given customer I
+      operationId: updateCustomer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '400':
+          description: Invalid resource supplied
+        '404':
+          description: The requested resource cannot be found
+        '500':
+          description: The server encountered an unexpected condition
+      requestBody:
+        $ref: '#/components/requestBodies/Customer'
+    delete:
+      tags:
+        - customer
+      summary: Delete a specific customer
+      description: Delete a specific customer by given customer ID
+      operationId: deleteCustomer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+  /customer/all:
+    get:
+      tags:
+        - customer
+      summary: Find all customers
+      description: All customers will be showed with a get request
+      operationId: getAllCustomer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid resource supplied
+  /customer/{customerName}:
+    get:
+      tags:
+        - customer
+      summary: Find a specific customer
+      description: Find a specific customer by given customer name
+      operationId: getCustomer
+      parameters:
+        - name: customerName
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+  /account/create:
+    post:
+      tags:
+        - account
+      summary: Create a new account
+      description: Create a new account using fields provided
+      operationId: addAccount
+      responses:
+        '200':
+          description: success operation
+      requestBody:
+        $ref: '#/components/requestBodies/Account'
+  /account/{accountId}:
+    get:
+      tags:
+        - account
+      summary: Find a specified account
+      description: Find a specified account by given account ID
+      operationId: getAccount
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+    delete:
+      tags:
+        - account
+      summary: Delete a specific account
+      description: Delete a specific customer by given customer ID
+      operationId: deleteAccount
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+  /account/all:
+    get:
+      tags:
+        - account
+      summary: Find all accounts
+      description: All Accounts will be showed with a get request
+      operationId: getAllAccount
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '400':
+          description: Invalid resource supplied
+  /account/{accountId}/balance:
+    get:
+      tags:
+        - account
+      summary: Get account balance
+      description: Get a specified account balance by given account Id
+      operationId: getAccountBalance
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '400':
+          description: Invalid resource supplied
+  /account/{accountId}/withdraw/{amount}:
+    put:
+      tags:
+        - account
+      summary: Withdraw money
+      description: Withdraw funds from a specified account
+      operationId: withdrawMoney
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+        - name: amount
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+      responses:
+        '400':
+          description: Invalid resource supplied
+        '404':
+          description: The requested resource cannot be found
+        '500':
+          description: The server encountered an unexpected condition
+  /account/{accountId}/deposit/{amount}:
+    put:
+      tags:
+        - account
+      summary: Deposit money
+      description: Deposit funds into a specified account
+      operationId: depositMoney
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+        - name: amount
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+      responses:
+        '400':
+          description: Invalid resource supplied
+        '404':
+          description: The requested resource cannot be found
+        '500':
+          description: The server encountered an unexpected condition
+  /transaction:
+    post:
+      tags:
+        - transaction
+      summary: Perform a money transaction
+      description: Perform a money transaction between two different customer accounts
+      responses:
+        '400':
+          description: Invalid resource supplied
+      requestBody:
+        $ref: '#/components/requestBodies/Transaction'
+
+components:
+  responses:
+    successResponse:
+      description: Success operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response'
+  schemas:
+    Response:
+      type: object
+      properties:
+        customer:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+    Customer:
+      type: object
+      properties:
+        customerName:
+          type: string
+        emailAddress:
+          type: string
+    Account:
+      type: object
+      properties:
+        accountId:
+          type: string
+    Transaction:
+      type: object
+      properties:
+        currencyCode:
+          type: string
+        amount:
+          type: integer
+        fromAccountId:
+          type: integer
+        toAccountId:
+          type: integer
+  requestBodies:
+    Customer:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer'
+      description: Customer object that needs to be added on the bank
+      required: true
+    Account:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Account'
+      description: Account object that needs to be added on the bank
+    Transaction:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Transaction'
