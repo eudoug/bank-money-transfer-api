@@ -58,7 +58,7 @@ The OpenAPI Specification is language-agnostic and is used right now on projects
 
 The project spec (OpenApi conception) can be found on the link: [a link](https://app.swaggerhub.com/apis/eudoug/DougMoneyTransfer/1.0.0) 
 
-To understand the API endpoints the swagger editor shows the following information: [a relative link](Postman.md)
+To understand the API endpoints the swagger editor shows the following information: [a relative link](./Postman.md)
 
 
 ![](./document/image%201.png)
