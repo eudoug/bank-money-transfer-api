@@ -49,7 +49,7 @@ As this project was created based on TDD process all the tests were concepted us
 Integration tests was created based on standards most used on mature projects and following the BDD process.
 
 You can also test the application using the Postman Collection provided on the project. You just need to 
-import the JSON following this tutorial: 
+import the JSON following this tutorial: [a relative link](./Postman.md)
 
 
 ## API Endpoints
@@ -60,7 +60,7 @@ The OpenAPI Specification is language-agnostic and is used right now on projects
 
 The project spec (OpenApi conception) can be found on the link: [a link](https://app.swaggerhub.com/apis/eudoug/DougMoneyTransfer/1.0.0) 
 
-To understand the API endpoints the swagger editor shows the following information: [a relative link](./Postman.md)
+To understand the API endpoints the swagger editor shows the following information: [a relative link](./OpenAPI)
 
 
 ![](./document/image%201.png)
