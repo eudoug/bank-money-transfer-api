@@ -3,6 +3,8 @@
 
 This is a REST API that supports money transactions between customer accounts.
 In this application we have three main characters: the customer, the account and the transaction.
+The data consistency and authenticatioon will not be treated on the API, so this application 
+considering that all data provided was treated by another layer on the system architecture.
 For this project I'm using lightweight frameworks and libraries.
 
 
