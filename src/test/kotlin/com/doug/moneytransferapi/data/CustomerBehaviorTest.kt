@@ -50,7 +50,7 @@ class CustomerBehaviorTest {
     @Throws(ExceptionHandler::class)
     fun iShouldntGetNonExistingCustomerById() {
         val customer = dataObjectFactory.customerDataObject.getCustomerById(500L)
-        assertTrue(customer == null)
+        assertNull(customer)
     }
 
     @Test

@@ -30,7 +30,32 @@ import kotlin.test.assertTrue
 class TransactionApplicationInternalServerErrorScenarios : ApplicationServiceTest() {
 
     /*
-         TestCase C1 Negative Category = TransactionService
+        TestCase C1 Negative Category = TransactionService
+        Scenario: When try to transfer between one account to another
+                 with accounts with different currency code this test
+                 should return internal server error
+        Return Code: 500 OK
+    */
+    @Test
+    @Throws(IOException::class, URISyntaxException::class)
+    fun iShouldReturnInternalServerErrorWhenTransactionDifferentCurrencyCode() {
+        val uri = builder.setPath("/transaction").build()
+        val amount = BigDecimal(100).setScale(4, RoundingMode.HALF_EVEN)
+        val transaction = CustomerTransaction("USD", amount, 1L, 6L)
+
+        val jsonInString = mapper.writeValueAsString(transaction)
+        val entity = StringEntity(jsonInString)
+        val request = HttpPost(uri)
+        request.setHeader("Content-type", "application/json")
+        request.entity = entity
+        val response = client.execute(request)
+        val statusCode = response.statusLine.statusCode
+        assertEquals(statusCode,500)
+    }
+
+
+    /*
+         TestCase C2 Negative Category = TransactionService
          Scenario: When trying to withdraw money from insufficient fund
                    this test should return internal server error
          Return Code: 500 OK
@@ -44,6 +69,30 @@ class TransactionApplicationInternalServerErrorScenarios : ApplicationServiceTes
         val response = client.execute(request)
         val statusCode = response.statusLine.statusCode
         val responseBody = EntityUtils.toString(response.entity)
+        assertEquals(statusCode,500)
+    }
+
+    /*
+        TestCase C3 Negative Category = TransactionService
+        Scenario: When try to transfer money from one account to another
+                  with source account without sufficient fund this test should
+                  return internal server error
+        Return Code: 500 OK
+    */
+    @Test
+    @Throws(IOException::class, URISyntaxException::class)
+    fun iShouldReturnInternalServerErrorWhenTransferNotEnoughFund() {
+        val uri = builder.setPath("/transaction").build()
+        val amount = BigDecimal(100000).setScale(4, RoundingMode.HALF_EVEN)
+        val transaction = CustomerTransaction("EUR", amount, 5L, 6L)
+
+        val jsonInString = mapper.writeValueAsString(transaction)
+        val entity = StringEntity(jsonInString)
+        val request = HttpPost(uri)
+        request.setHeader("Content-type", "application/json")
+        request.entity = entity
+        val response = client.execute(request)
+        val statusCode = response.statusLine.statusCode
         assertEquals(statusCode,500)
     }
 }

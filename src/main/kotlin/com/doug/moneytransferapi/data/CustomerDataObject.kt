@@ -13,11 +13,6 @@ interface CustomerDataObject {
     @Throws(ExceptionHandler::class)
     fun getCustomerByName(customerName: String): Customer?
 
-    /**
-     * @param customer:
-     * customer to be created
-     * @return customerId generated from insertion. return -1 on error
-     */
     @Throws(ExceptionHandler::class)
     fun insertCustomer(customer: Customer): Long
 

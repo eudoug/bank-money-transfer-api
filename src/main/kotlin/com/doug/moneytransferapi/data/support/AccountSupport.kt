@@ -117,8 +117,8 @@ class AccountSupport : AccountDataObject {
      */
     @Throws(ExceptionHandler::class)
     override fun deleteAccountById(accountId: Long): Int {
-        lateinit var conn: Connection
-        lateinit var stmt: PreparedStatement
+        var conn: Connection? = null
+        var stmt: PreparedStatement? = null
         try {
             conn = DataFactory.getConnection()
             stmt = conn.prepareStatement(SQL_DELETE_ACC_BY_ID)
@@ -137,11 +137,11 @@ class AccountSupport : AccountDataObject {
      */
     @Throws(ExceptionHandler::class)
     override fun updateAccountBalance(accountId: Long, deltaAmount: BigDecimal): Int {
-        lateinit var conn: Connection
-        lateinit var lockStmt: PreparedStatement
-        lateinit var updateStmt: PreparedStatement
-        lateinit var rs: ResultSet
-        lateinit var targetAccount: Account
+        var conn: Connection? = null
+        var lockStmt: PreparedStatement? = null
+        var updateStmt: PreparedStatement? = null
+        var rs: ResultSet? = null
+        var targetAccount: Account? = null
         var updateCount = -1
         try {
             conn = DataFactory.getConnection()
@@ -160,7 +160,7 @@ class AccountSupport : AccountDataObject {
             }
 
             // update account upon success locking
-            val balance = targetAccount.balance?.add(deltaAmount)
+            val balance = targetAccount?.balance?.add(deltaAmount)
             if (balance!! < MoneyTransaction.zeroAmount) {
                 throw ExceptionHandler("Not sufficient Fund for account: $accountId")
             }
@@ -177,7 +177,7 @@ class AccountSupport : AccountDataObject {
             // rollback transaction if exception occurs
             log.error("updateAccountBalance(): Customer Transaction Failed, rollback initiated for: $accountId", se)
             try {
-                conn.rollback()
+                conn?.rollback()
             } catch (re: SQLException) {
                 throw ExceptionHandler("Fail to rollback transaction", re)
             }
@@ -197,12 +197,12 @@ class AccountSupport : AccountDataObject {
     @Throws(ExceptionHandler::class)
     override fun transferAccountBalance(customerTransaction: CustomerTransaction): Int {
         var result = -1
-        lateinit var conn: Connection
-        lateinit var lockStmt: PreparedStatement
-        lateinit var updateStmt: PreparedStatement
-        lateinit var rs: ResultSet
-        lateinit var fromAccount: Account
-        lateinit var toAccount: Account
+        var conn: Connection? = null
+        var lockStmt: PreparedStatement? = null
+        var updateStmt: PreparedStatement? = null
+        var rs: ResultSet? = null
+        var fromAccount: Account? = null
+        var toAccount: Account? = null
 
         try {
             conn = DataFactory.getConnection()
@@ -232,21 +232,21 @@ class AccountSupport : AccountDataObject {
             }
 
             // check transaction currency
-            if (fromAccount.currencyCode != customerTransaction.currencyCode) {
+            if (fromAccount?.currencyCode != customerTransaction.currencyCode) {
                 throw ExceptionHandler(
                     "Fail to transfer Fund, transaction ccy are different from source/destination"
                 )
             }
 
             // check ccy is the same for both accounts
-            if (fromAccount.currencyCode != toAccount.currencyCode) {
+            if (fromAccount?.currencyCode != toAccount?.currencyCode) {
                 throw ExceptionHandler(
                     "Fail to transfer Fund, the source and destination account are in different currency"
                 )
             }
 
             // check enough fund in source account
-            val fromAccountLeftOver = fromAccount.balance?.subtract(customerTransaction.amount)
+            val fromAccountLeftOver = fromAccount?.balance?.subtract(customerTransaction.amount)
             if (fromAccountLeftOver?.compareTo(MoneyTransaction.zeroAmount)!! < 0) {
                 throw ExceptionHandler("Not enough Fund from source Account ")
             }
@@ -256,7 +256,7 @@ class AccountSupport : AccountDataObject {
             updateStmt.setBigDecimal(1, fromAccountLeftOver)
             updateStmt.setLong(2, customerTransaction.fromAccountId!!)
             updateStmt.addBatch()
-            updateStmt.setBigDecimal(1, toAccount.balance?.add(customerTransaction.amount))
+            updateStmt.setBigDecimal(1, toAccount?.balance?.add(customerTransaction.amount))
             updateStmt.setLong(2, customerTransaction.toAccountId!!)
             updateStmt.addBatch()
             val rowsUpdated = updateStmt.executeBatch()
@@ -273,7 +273,7 @@ class AccountSupport : AccountDataObject {
                 se
             )
             try {
-                conn.rollback()
+                conn?.rollback()
             } catch (re: SQLException) {
                 throw ExceptionHandler("Fail to rollback transaction", re)
             }

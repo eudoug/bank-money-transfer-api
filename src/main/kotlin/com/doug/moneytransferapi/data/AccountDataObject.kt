@@ -8,6 +8,7 @@ import java.math.BigDecimal
 interface AccountDataObject {
 
     val allAccounts: List<Account>
+
     @Throws(ExceptionHandler::class)
     fun getAccountById(accountId: Long): Account
 
@@ -19,11 +20,7 @@ interface AccountDataObject {
 
     @Throws(ExceptionHandler::class)
     fun transferAccountBalance(customerTransaction: CustomerTransaction): Int
-    /**
-     *
-     * @param accountId customer accountId
-     * @param deltaAmount amount to be debit.
-     */
+
     @Throws(ExceptionHandler::class)
     fun updateAccountBalance(accountId: Long, deltaAmount: BigDecimal): Int
 

@@ -72,7 +72,7 @@ class AccountApplicationSuccessScenarios : ApplicationServiceTest() {
         //assert the content,
         val balance = EntityUtils.toString(response.entity)
         val res = BigDecimal(balance).setScale(4, RoundingMode.HALF_EVEN)
-        val db = BigDecimal(100).setScale(4, RoundingMode.HALF_EVEN)
+        val db = BigDecimal(300).setScale(4, RoundingMode.HALF_EVEN)
         assertEquals(res, db)
     }
 

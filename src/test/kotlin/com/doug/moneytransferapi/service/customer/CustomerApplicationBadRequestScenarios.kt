@@ -29,7 +29,7 @@ class CustomerApplicationBadRequestScenarios : ApplicationServiceTest()  {
     @Throws(IOException::class, URISyntaxException::class)
     fun iShouldThrowBadRequestWhenTryingToCreateExistingCustomer() {
         val uri = builder.setPath("/customer/create").build()
-        val customer = Customer("Ajani", "ajanigoldmane@gmail.com")
+        val customer = Customer("Ajani Goldmane", "ajanigoldmane@gmail.com")
         val jsonInString = mapper.writeValueAsString(customer)
         val entity = StringEntity(jsonInString)
         val request = HttpPost(uri)

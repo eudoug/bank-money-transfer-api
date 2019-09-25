@@ -89,15 +89,15 @@ class AccountBehaviorTest {
     fun iShouldUpdateAccountBalanceSufficientFund() {
 
         val deltaDeposit = BigDecimal(50).setScale(4, RoundingMode.HALF_EVEN)
-        val afterDeposit = BigDecimal(150).setScale(4, RoundingMode.HALF_EVEN)
+        val afterDeposit = BigDecimal(350).setScale(4, RoundingMode.HALF_EVEN)
         val rowsUpdated = dataObjectFactory.accountDataObject.updateAccountBalance(1L, deltaDeposit)
         assertEquals(rowsUpdated,1)
-        assertTrue(dataObjectFactory.accountDataObject.getAccountById(1L).balance!! == afterDeposit)
+        assertEquals(dataObjectFactory.accountDataObject.getAccountById(1L).balance!!, afterDeposit)
         val deltaWithDraw = BigDecimal(-50).setScale(4, RoundingMode.HALF_EVEN)
-        val afterWithDraw = BigDecimal(100).setScale(4, RoundingMode.HALF_EVEN)
+        val afterWithDraw = BigDecimal(300).setScale(4, RoundingMode.HALF_EVEN)
         val rowsUpdatedW = dataObjectFactory.accountDataObject.updateAccountBalance(1L, deltaWithDraw)
         assertEquals(rowsUpdatedW, 1)
-        assertTrue(dataObjectFactory.accountDataObject.getAccountById(1L).balance!! == afterWithDraw)
+        assertEquals(dataObjectFactory.accountDataObject.getAccountById(1L).balance!!, afterWithDraw)
 
     }
 
