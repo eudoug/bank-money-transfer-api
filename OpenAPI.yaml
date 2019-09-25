@@ -307,6 +307,12 @@ components:
       properties:
         accountId:
           type: string
+        customerName:
+          type: string
+        balance:
+          type: integer
+        currencyCode:
+          type: string
     Transaction:
       type: object
       properties:
