@@ -33,6 +33,8 @@ DataBase: H2 (H2 is a relational database management system written in Java)
 
 Logger: Log4j (Apache Log4j is a Java-based logging utility)
 
+Code Coverage: SonarLint Plugin - SonarQube
+
 HTTP: Apache HTTP Client (Is a compliant HTTP agent implementation based on HttpCore)
 
 
