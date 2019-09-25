@@ -15,8 +15,7 @@ DROP TABLE IF EXISTS Account;
 CREATE TABLE Account (AccountId LONG PRIMARY KEY AUTO_INCREMENT NOT NULL,
 CustomerName VARCHAR(30),
 Balance DECIMAL(19,4),
-CurrencyCode VARCHAR(30)
-);
+CurrencyCode VARCHAR(30));
 
 CREATE UNIQUE INDEX idx_acc on Account(CustomerName,CurrencyCode);
 

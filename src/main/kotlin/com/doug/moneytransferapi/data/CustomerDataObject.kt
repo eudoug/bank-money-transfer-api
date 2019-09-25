@@ -5,7 +5,7 @@ import com.doug.moneytransferapi.model.Customer
 
 interface CustomerDataObject {
 
-    val getAllCustomer: List<Customer>
+    val allCustomer: List<Customer>
 
     @Throws(ExceptionHandler::class)
     fun getCustomerById(customerId: Long): Customer

@@ -51,11 +51,11 @@ class AccountBehaviorTest {
     fun iShouldCreateAccount() {
         val balance = BigDecimal(1530).setScale(4, RoundingMode.HALF_EVEN)
         val account = Account("Jace Beleren", balance, "BRL")
-        val aid = dataObjectFactory.accountDataObject.createAccount(account)
-        val afterCreation = dataObjectFactory.accountDataObject.getAccountById(aid)
-        assertEquals(afterCreation.customerName,"Jace Beleren")
-        assertEquals(afterCreation.currencyCode,"BRL")
-        afterCreation.balance?.equals(balance)?.let { assertTrue(it) }
+        val aid = dataObjectFactory.accountDataObject.insertAccount(account)
+        val accountAfterCreation = dataObjectFactory.accountDataObject.getAccountById(aid)
+        assertEquals(account.customerName,"Jace Beleren")
+        assertEquals(accountAfterCreation.currencyCode,"BRL")
+        accountAfterCreation.balance?.equals(balance)?.let { assertTrue(it) }
     }
 
     @Test
@@ -64,7 +64,7 @@ class AccountBehaviorTest {
         val rowCount = dataObjectFactory.accountDataObject.deleteAccountById(2L)
         // assert one row(user) deleted
         assertEquals(rowCount, 1)
-        // assert user no longer there
+        // assert customer was removed
         assertNull(dataObjectFactory.accountDataObject.getAccountById(2L))
     }
 
@@ -72,7 +72,7 @@ class AccountBehaviorTest {
     @Throws(ExceptionHandler::class)
     fun iShouldntDeleteNonExistingAccount() {
         val rowCount = dataObjectFactory.accountDataObject.deleteAccountById(500L)
-        // assert no row(user) deleted
+        // assert no customer deleted
         assertEquals(rowCount, 0)
 
     }

@@ -88,7 +88,7 @@ class CustomerApplicationSuccessScenarios : ApplicationServiceTest() {
         //check the content
         val jsonString = EntityUtils.toString(response.entity)
         val customers = mapper.readValue(jsonString, Array<Customer>::class.java)
-        assertTrue(customers.run { isNotEmpty() })
+        assertNotNull(customers)
     }
 
     /*

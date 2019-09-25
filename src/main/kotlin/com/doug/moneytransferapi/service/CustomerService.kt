@@ -23,7 +23,7 @@ class CustomerService {
         @GET
         @Path("/all")
         @Throws(ExceptionHandler::class)
-        get() = factory.customerDataObject.getAllCustomer
+        get() = factory.customerDataObject.allCustomer
 
     /**
      * Find by customerName

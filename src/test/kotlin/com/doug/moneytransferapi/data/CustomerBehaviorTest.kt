@@ -9,7 +9,6 @@ import org.junit.Test
 import org.junit.jupiter.api.TestInstance
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
-import kotlin.test.assertTrue
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -58,7 +57,7 @@ class CustomerBehaviorTest {
     @Test
     @Throws(ExceptionHandler::class)
     fun iShouldGetAllCustomers() {
-        val allCustomers = dataObjectFactory.customerDataObject.getAllCustomer
+        val allCustomers = dataObjectFactory.customerDataObject.allCustomer
         assertEquals(allCustomers.size, 0)
     }
 

@@ -44,10 +44,10 @@ public class DataFactory extends DataObjectFactory {
     @Override
     public void generateApplicationData() {
         log.info("Populating Test Customer Table and data ..... ");
-        Connection conn = null;
+        Connection connection = null;
         try {
-            conn = DataFactory.getConnection();
-            RunScript.execute(conn, new FileReader("src/main/resources/database.sql"));
+            connection = DataFactory.getConnection();
+            RunScript.execute(connection, new FileReader("src/main/resources/database.sql"));
         } catch (SQLException e) {
             log.error("generateApplicationData(): Error populating customer data: ", e);
             throw new RuntimeException(e);
@@ -55,7 +55,7 @@ public class DataFactory extends DataObjectFactory {
             log.error("generateApplicationData(): Error finding test script file ", e);
             throw new RuntimeException(e);
         } finally {
-            DbUtils.closeQuietly(conn);
+            DbUtils.closeQuietly(connection);
         }
     }
 

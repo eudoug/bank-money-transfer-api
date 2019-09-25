@@ -67,13 +67,13 @@ class AccountApplicationSuccessScenarios : ApplicationServiceTest() {
         val request = HttpGet(uri)
         val response = client.execute(request)
         val statusCode = response.statusLine.statusCode
-        assertEquals(statusCode,200)
 
-        //assert the content,
+        assertEquals(statusCode,200)
+        
         val balance = EntityUtils.toString(response.entity)
-        val res = BigDecimal(balance).setScale(4, RoundingMode.HALF_EVEN)
-        val db = BigDecimal(300).setScale(4, RoundingMode.HALF_EVEN)
-        assertEquals(res, db)
+        val result = BigDecimal(balance).setScale(4, RoundingMode.HALF_EVEN)
+        val dbResult = BigDecimal(300).setScale(4, RoundingMode.HALF_EVEN)
+        assertEquals(result, dbResult)
     }
 
     /*

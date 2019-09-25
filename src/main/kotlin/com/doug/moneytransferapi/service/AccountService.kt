@@ -74,7 +74,7 @@ class AccountService {
     @Path("/create")
     @Throws(ExceptionHandler::class)
     fun createAccount(account: Account): Account? {
-        val accountId = factory.accountDataObject.createAccount(account)
+        val accountId = factory.accountDataObject.insertAccount(account)
         return factory.accountDataObject.getAccountById(accountId)
     }
 

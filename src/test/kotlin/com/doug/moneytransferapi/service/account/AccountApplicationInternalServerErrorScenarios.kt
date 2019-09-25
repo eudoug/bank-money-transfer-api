@@ -37,7 +37,7 @@ class AccountApplicationInternalServerErrorScenarios : ApplicationServiceTest() 
     @Throws(IOException::class, URISyntaxException::class)
     fun iShouldReturnInternalServerErrorWhenCreateExistingAccount() {
         val uri = builder.setPath("/account/create").build()
-        val acc = Account("test1", BigDecimal(0), "USD")
+        val acc = Account("Liliana Vess", BigDecimal(0), "USD")
         val jsonInString = mapper.writeValueAsString(acc)
         val entity = StringEntity(jsonInString)
         val request = HttpPut(uri)

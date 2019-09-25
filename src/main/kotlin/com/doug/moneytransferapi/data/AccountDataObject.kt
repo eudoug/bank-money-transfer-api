@@ -13,7 +13,7 @@ interface AccountDataObject {
     fun getAccountById(accountId: Long): Account
 
     @Throws(ExceptionHandler::class)
-    fun createAccount(account: Account): Long
+    fun insertAccount(account: Account): Long
 
     @Throws(ExceptionHandler::class)
     fun deleteAccountById(accountId: Long): Int
