@@ -3,7 +3,7 @@
 
 This is a REST API that supports money transactions between customer accounts.
 In this application we have three main characters: the customer, the account and the transaction.
-For the sake of performance, I'm using lightweight frameworks and libraries.
+For this project I'm using lightweight frameworks and libraries.
 
 
 ## Summary
