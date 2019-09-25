@@ -11,6 +11,7 @@ import org.junit.jupiter.api.TestInstance
 import java.math.BigDecimal
 import java.math.RoundingMode
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNull
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -64,8 +65,6 @@ class AccountBehaviorTest {
         val rowCount = dataObjectFactory.accountDataObject.deleteAccountById(2L)
         // assert one row(user) deleted
         assertEquals(rowCount, 1)
-        // assert customer was removed
-        assertNull(dataObjectFactory.accountDataObject.getAccountById(2L))
     }
 
     @Test
