@@ -3,15 +3,15 @@
 
 This is a REST API that supports money transactions between customer accounts.
 In this application we have three main characters: the customer, the account and the transaction.
-The data consistency and authenticatioon will not be treated on the API, so this application 
+The data consistency and authentication will not be treated on the API, so this application 
 considering that all data provided was treated by another layer on the system architecture.
 For this project I'm using lightweight frameworks and libraries.
 
 
 ## Summary
 
-This README file is dedicated to those that want to figure out which technologies 
-was used and want to test and understand this API.
+This README file is dedicated to those who want to find out which technologies
+have been used and want to test this API.
 
 
 ### Technologies
@@ -44,7 +44,7 @@ Clone the repository locally and open the project with your preferred IDE.
 
 ## Testing
 
-As this project was created based on TDD process all the tests were concepted using the test-first approach. 
+As this project was created based on TDD process, all the tests were designed using the test-first approach. 
 
 Integration tests was created based on standards most used on mature projects and following the BDD process.
 
@@ -56,26 +56,28 @@ import the JSON following this tutorial: [a relative link](./Postman.md)
 
 To design the API was used the OpenAPI specification originally known as the Swagger Specification.
 
-The OpenAPI Specification is language-agnostic and is used right now on projects for great companies like Google and Microsoft. With an OpenAPI spec an API can be easily managed with some API management tools like Google Apigee.
+The OpenAPI Specification is language-agnostic and is used right now on projects for great companies like Google and Microsoft. 
 
-The project spec (OpenApi conception) can be found on the link: [a link](https://app.swaggerhub.com/apis/eudoug/DougMoneyTransfer/1.0.0) 
+With an OpenAPI spec, an API can be easily managed with some API management tools like Google Apigee.
 
-To understand the API endpoints the swagger editor shows the following information: [a relative link](./OpenAPI)
+The project spec (OpenApi conception) can be found on the link [a link](https://app.swaggerhub.com/apis/eudoug/DougMoneyTransfer/1.0.0) or inside project [a relative link](OpenAPI.yaml). 
 
-
-![](./document/image%201.png)
+To understand the API endpoints the swagger editor shows the following information: 
 
 **Figure 1** - Customer Endpoints
 
+![](./document/image%201.png)
 
-![](./document/image%202.png)
 
 **Figure 2** - Account Endpoints
 
+![](./document/image%202.png)
+
+
+**Figure 3** - Transaction Endpoint
 
 ![](./document/image%203.png)
 
-**Figure 3** - Transaction Endpoint
 
 
 ## API Installation
