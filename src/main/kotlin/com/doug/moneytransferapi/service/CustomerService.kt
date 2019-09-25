@@ -53,7 +53,7 @@ class CustomerService {
     @Path("/create")
     @Throws(ExceptionHandler::class)
     fun createCustomer(customer: Customer): Customer {
-        if (customer.getCustomerName()?.let { factory.customerDataObject.getCustomerByName(it) } != null) {
+        if (customer.customerName?.let { factory.customerDataObject.getCustomerByName(it) } != null) {
             throw WebApplicationException("Customer name already exist", Response.Status.BAD_REQUEST)
         }
         val uId = factory.customerDataObject.insertCustomer(customer)

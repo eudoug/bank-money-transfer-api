@@ -7,6 +7,7 @@ import junit.framework.Assert.assertTrue
 import org.apache.http.client.methods.HttpDelete
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.methods.HttpPut
+import org.apache.http.client.methods.HttpUriRequest
 import org.apache.http.entity.StringEntity
 import org.apache.http.util.EntityUtils
 import org.junit.Test
@@ -44,7 +45,7 @@ class AccountApplicationSuccessScenarios : ApplicationServiceTest() {
     fun iShouldReturnSuccessWhenGetAccountByCustomerName() {
         val uri = builder.setPath("/account/1").build()
         val request = HttpGet(uri)
-        val response = client.execute(request)
+        val response = client.execute(request as HttpUriRequest?)
         val statusCode = response.statusLine.statusCode
         assertEquals(statusCode, 200)
 
@@ -104,8 +105,8 @@ class AccountApplicationSuccessScenarios : ApplicationServiceTest() {
     @Throws(IOException::class, URISyntaxException::class)
     fun iShouldReturnSuccessWhenCreateAccount() {
         val uri = builder.setPath("/account/create").build()
-        val balance = BigDecimal(10).setScale(4, RoundingMode.HALF_EVEN)
-        val acc = Account("Ajani Goldmane", balance, "USD")
+        val balance = BigDecimal(1000).setScale(4, RoundingMode.HALF_EVEN)
+        val acc = Account("Chandra Naalar", balance, "USD")
         val jsonInString = mapper.writeValueAsString(acc)
         val entity = StringEntity(jsonInString)
         val request = HttpPut(uri)
@@ -116,7 +117,7 @@ class AccountApplicationSuccessScenarios : ApplicationServiceTest() {
         assertEquals(statusCode, 200)
         val jsonString = EntityUtils.toString(response.entity)
         val accountAfterCreation = mapper.readValue(jsonString, Account::class.java)
-        assertEquals(accountAfterCreation.customerName, "Ajani Goldmane")
+        assertEquals(accountAfterCreation.customerName, "Chandra Naalar")
         assertEquals(accountAfterCreation.currencyCode, "USD")
     }
 

@@ -4,19 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.math.BigDecimal
 
-class Account {
+class  Account {
 
     @JsonIgnore
     var accountId: Long = 0
 
     @JsonProperty(required = true)
-    lateinit var customerName: String
+    var customerName: String? = null
+        private set
 
     @JsonProperty(required = true)
-    lateinit var balance: BigDecimal
+    var balance: BigDecimal? = null
+        private set
 
     @JsonProperty(required = true)
-    lateinit var currencyCode: String
+    var currencyCode: String? = null
+        private set
 
 
     constructor() {}
@@ -38,13 +41,10 @@ class Account {
         if (this === o) return true
         if (o == null || javaClass != o.javaClass) return false
 
-        val account = o as Account
+        val account = o as Account?
 
-        if (accountId != account.accountId) return false
-        if (customerName != account.customerName) return false
-        return if (balance != account.balance) false else {
-            currencyCode == account.currencyCode
-        }
+        if (accountId != account!!.accountId) return false
+        return if (balance != account.balance) false else currencyCode == account.currencyCode
 
     }
 

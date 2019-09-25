@@ -6,16 +6,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
 class Customer {
 
     @JsonIgnore
-    private var customerId: Long = 0
-
-
-    @JsonProperty(required = true)
-    private lateinit var customerName: String
-
+    var customerId: Long = 0
 
     @JsonProperty(required = true)
-    private lateinit var emailAddress: String
+    var customerName: String? = null
+        private set
 
+    @JsonProperty(required = true)
+    var emailAddress: String? = null
+        private set
 
     constructor() {}
 
@@ -30,17 +29,6 @@ class Customer {
         this.emailAddress = emailAddress
     }
 
-    fun getCustomerId(): Long {
-        return customerId
-    }
-
-    fun getCustomerName(): String {
-        return customerName
-    }
-
-    fun getEmailAddress(): String {
-        return emailAddress
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

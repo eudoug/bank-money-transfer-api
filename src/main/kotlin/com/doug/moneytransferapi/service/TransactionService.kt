@@ -29,7 +29,7 @@ class TransactionService {
     fun transferFund(transaction: CustomerTransaction): Response {
 
         val currency = transaction.currencyCode
-        if (MoneyTransaction.INSTANCE.validateCurrencyCode(currency)) {
+        if (currency?.let { MoneyTransaction.INSTANCE.validateCurrencyCode(it) }!!) {
             val updateCount = dataFactory.accountDataObject.transferAccountBalance(transaction)
             return if (updateCount == 2) {
                 Response.status(Response.Status.OK).build()

@@ -6,39 +6,24 @@ import java.math.BigDecimal
 class CustomerTransaction {
 
     @JsonProperty(required = true)
-    val currencyCode: String
+    var currencyCode: String? = null
+        private set
 
     @JsonProperty(required = true)
-    val amount: BigDecimal
+    var amount: BigDecimal? = null
+        private set
 
     @JsonProperty(required = true)
-    val fromAccountId: Long?
+    var fromAccountId: Long? = null
+        private set
 
     @JsonProperty(required = true)
-    val toAccountId: Long?
+    var toAccountId: Long? = null
+        private set
 
-    constructor(
-        currencyCode: String,
-        amount: BigDecimal,
-        fromAccountId: Long?,
-        toAccountId: Long?
-    ) {
-        this.currencyCode = currencyCode
-        this.amount = amount
-        this.fromAccountId = fromAccountId
-        this.toAccountId = toAccountId
-    }
+    constructor() {}
 
-    constructor(
-        currencyCode: String,
-        amount: BigDecimal,
-        fromAccountId: Long?,
-        toAccountId: Long?,
-        currencyCode1: String,
-        amount1: BigDecimal,
-        fromAccountId1: Long?,
-        toAccountId1: Long?
-    ) {
+    constructor(currencyCode: String, amount: BigDecimal, fromAccountId: Long?, toAccountId: Long?) {
         this.currencyCode = currencyCode
         this.amount = amount
         this.fromAccountId = fromAccountId

@@ -47,7 +47,7 @@ public class DataFactory extends DataObjectFactory {
         Connection conn = null;
         try {
             conn = DataFactory.getConnection();
-            RunScript.execute(conn, new FileReader("src/main/resources/database.sql"));
+            RunScript.execute(conn, new FileReader("/home/dlima/IdeaProjects/bank-doug/bank-money-transfer-api/src/main/resources/database.sql"));
         } catch (SQLException e) {
             log.error("generateApplicationData(): Error populating customer data: ", e);
             throw new RuntimeException(e);

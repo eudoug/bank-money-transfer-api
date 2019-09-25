@@ -43,7 +43,7 @@ class CustomerBehaviorTest {
     @Throws(ExceptionHandler::class)
     fun iShouldGetCustomerById() {
         val customer = dataObjectFactory.customerDataObject.getCustomerById(2L)
-        assertEquals(customer.getCustomerName(),"Liliana Vess")
+        assertEquals(customer.customerName,"Liliana Vess")
     }
 
     @Test
@@ -66,8 +66,8 @@ class CustomerBehaviorTest {
         val customer = Customer("Chandra Nalaar", "chandranalaar@gmail.com")
         val id = dataObjectFactory.customerDataObject.insertCustomer(customer)
         val customerAfterInsert = dataObjectFactory.customerDataObject.getCustomerById(id)
-        assertEquals(customer.getEmailAddress(),"chandranalaar@gmail.com")
-        assertEquals(customerAfterInsert.getCustomerName(),"Chandra Nalaar")
+        assertEquals(customer.emailAddress,"chandranalaar@gmail.com")
+        assertEquals(customerAfterInsert.customerName,"Chandra Nalaar")
 
     }
 
@@ -78,7 +78,7 @@ class CustomerBehaviorTest {
         val rowCount = dataObjectFactory.customerDataObject.updateCustomer(1L, customer)
         // assert one row(customer) updated
         assertEquals(rowCount, 1)
-        assertEquals(dataObjectFactory.customerDataObject.getCustomerById(1L).getEmailAddress(),"ajani@gmail.com")
+        assertEquals(dataObjectFactory.customerDataObject.getCustomerById(1L).emailAddress,"ajani@gmail.com")
     }
 
     @Test

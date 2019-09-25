@@ -22,9 +22,9 @@ class AccountSupport : AccountDataObject {
     override val allAccounts: List<Account>
         @Throws(ExceptionHandler::class)
         get() {
-            lateinit var conn: Connection
-            lateinit var stmt: PreparedStatement
-            lateinit var rs: ResultSet
+            var conn: Connection? = null
+            var stmt: PreparedStatement? = null
+            var rs: ResultSet? = null
             val allAccounts = ArrayList<Account>()
             try {
                 conn = DataFactory.getConnection()
@@ -52,10 +52,10 @@ class AccountSupport : AccountDataObject {
      */
     @Throws(ExceptionHandler::class)
     override fun getAccountById(accountId: Long): Account {
-        lateinit var conn: Connection
-        lateinit var stmt: PreparedStatement
-        lateinit var rs: ResultSet
-        lateinit var acc: Account
+        var conn: Connection? = null
+        var stmt: PreparedStatement? = null
+        var rs: ResultSet? = null
+        var acc: Account? = null
         try {
             conn = DataFactory.getConnection()
             stmt = conn.prepareStatement(SQL_GET_ACC_BY_ID)
@@ -69,7 +69,7 @@ class AccountSupport : AccountDataObject {
                 if (log.isDebugEnabled)
                     log.debug("Retrieve Account By Id: $acc")
             }
-            return acc
+            return acc!!
         } catch (e: SQLException) {
             throw ExceptionHandler("getAccountById(): Error reading account data", e)
         } finally {
@@ -83,9 +83,9 @@ class AccountSupport : AccountDataObject {
      */
     @Throws(ExceptionHandler::class)
     override fun createAccount(account: Account): Long {
-        lateinit var conn: Connection
-        lateinit var stmt: PreparedStatement
-        lateinit var generatedKeys: ResultSet
+        var conn: Connection? = null
+        var stmt: PreparedStatement? = null
+        var generatedKeys: ResultSet? = null
         try {
             conn = DataFactory.getConnection()
             stmt = conn.prepareStatement(SQL_CREATE_ACC)
@@ -98,7 +98,7 @@ class AccountSupport : AccountDataObject {
                 throw ExceptionHandler("Account Cannot be created")
             }
             generatedKeys = stmt.generatedKeys
-            if (generatedKeys.next()) {
+            if (generatedKeys!!.next()) {
                 return generatedKeys.getLong(1)
             } else {
                 log.error("Creating account failed, no ID obtained.")
@@ -160,8 +160,8 @@ class AccountSupport : AccountDataObject {
             }
 
             // update account upon success locking
-            val balance = targetAccount.balance.add(deltaAmount)
-            if (balance < MoneyTransaction.zeroAmount) {
+            val balance = targetAccount.balance?.add(deltaAmount)
+            if (balance!! < MoneyTransaction.zeroAmount) {
                 throw ExceptionHandler("Not sufficient Fund for account: $accountId")
             }
 
@@ -246,7 +246,7 @@ class AccountSupport : AccountDataObject {
             }
 
             // check enough fund in source account
-            val fromAccountLeftOver = fromAccount.balance.subtract(customerTransaction.amount)
+            val fromAccountLeftOver = fromAccount.balance?.subtract(customerTransaction.amount)
             if (fromAccountLeftOver?.compareTo(MoneyTransaction.zeroAmount)!! < 0) {
                 throw ExceptionHandler("Not enough Fund from source Account ")
             }
@@ -254,10 +254,10 @@ class AccountSupport : AccountDataObject {
             // proceed with update
             updateStmt = conn.prepareStatement(SQL_UPDATE_ACC_BALANCE)
             updateStmt.setBigDecimal(1, fromAccountLeftOver)
-            updateStmt.setLong(2, customerTransaction.fromAccountId)
+            updateStmt.setLong(2, customerTransaction.fromAccountId!!)
             updateStmt.addBatch()
-            updateStmt.setBigDecimal(1, toAccount.balance.add(customerTransaction.amount))
-            updateStmt.setLong(2, customerTransaction.toAccountId)
+            updateStmt.setBigDecimal(1, toAccount.balance?.add(customerTransaction.amount))
+            updateStmt.setLong(2, customerTransaction.toAccountId!!)
             updateStmt.addBatch()
             val rowsUpdated = updateStmt.executeBatch()
             result = rowsUpdated[0] + rowsUpdated[1]

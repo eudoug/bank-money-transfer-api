@@ -42,8 +42,8 @@ class CustomerApplicationSuccessScenarios : ApplicationServiceTest() {
         //check the content
         val jsonString = EntityUtils.toString(response.entity)
         val customer = mapper.readValue(jsonString, Customer::class.java)
-        assertEquals(customer.getCustomerName(), "Sorin Markov")
-        assertEquals(customer.getEmailAddress(),"sorinmarkov@gmail.com")
+        assertEquals(customer.customerName, "Sorin Markov")
+        assertEquals(customer.emailAddress,"sorinmarkov@gmail.com")
     }
 
     /*
@@ -67,8 +67,8 @@ class CustomerApplicationSuccessScenarios : ApplicationServiceTest() {
         assertEquals(statusCode, 200)
         val jsonString = EntityUtils.toString(response.entity)
         val customerAfterCreation = mapper.readValue(jsonString, Customer::class.java)
-        assertEquals(customerAfterCreation.getCustomerName(), "Nissa Revane")
-        assertEquals(customerAfterCreation.getEmailAddress(), "nissarevane@gmail.com")
+        assertEquals(customerAfterCreation.customerName, "Nissa Revane")
+        assertEquals(customerAfterCreation.emailAddress, "nissarevane@gmail.com")
 
     }
 
