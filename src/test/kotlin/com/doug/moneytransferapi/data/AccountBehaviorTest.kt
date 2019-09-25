@@ -48,20 +48,13 @@ class AccountBehaviorTest {
 
     @Test
     @Throws(ExceptionHandler::class)
-    fun iShouldntGetNonExistingAccountById() {
-        val account = dataObjectFactory.accountDataObject.getAccountById(100L)
-        assertNull(account)
-    }
-
-    @Test
-    @Throws(ExceptionHandler::class)
     fun iShouldCreateAccount() {
-        val balance = BigDecimal(10).setScale(4, RoundingMode.HALF_EVEN)
-        val account = Account("Ajani Goldmane", balance, "CNY")
+        val balance = BigDecimal(1530).setScale(4, RoundingMode.HALF_EVEN)
+        val account = Account("Jace Beleren", balance, "BRL")
         val aid = dataObjectFactory.accountDataObject.createAccount(account)
         val afterCreation = dataObjectFactory.accountDataObject.getAccountById(aid)
-        assertEquals(afterCreation.customerName,"Ajani Goldmane")
-        assertEquals(afterCreation.currencyCode,"CNY")
+        assertEquals(afterCreation.customerName,"Jace Beleren")
+        assertEquals(afterCreation.currencyCode,"BRL")
         afterCreation.balance?.equals(balance)?.let { assertTrue(it) }
     }
 

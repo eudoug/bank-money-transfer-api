@@ -4,7 +4,7 @@ CREATE TABLE Customer (CustomerId LONG PRIMARY KEY AUTO_INCREMENT NOT NULL,
 CustomerName VARCHAR(30) NOT NULL,
 EmailAddress VARCHAR(30) NOT NULL);
 
-CREATE UNIQUE INDEX idx_ts on Customer(CustomerName,EmailAddress);
+CREATE UNIQUE INDEX idx_ue on Customer(CustomerName,EmailAddress);
 
 INSERT INTO Customer (CustomerName,EmailAddress) VALUES ('Ajani Goldmane','ajanigoldmane@gmail.com');
 INSERT INTO Customer (CustomerName,EmailAddress) VALUES ('Liliana Vess','ilianavess@gmail.com');

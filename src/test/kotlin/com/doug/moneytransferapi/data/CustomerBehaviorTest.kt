@@ -2,7 +2,6 @@ package com.doug.moneytransferapi.data
 
 import com.doug.moneytransferapi.exception.ExceptionHandler
 import com.doug.moneytransferapi.model.Customer
-import junit.framework.TestCase
 import org.apache.log4j.Logger
 import org.junit.After
 import org.junit.Before
@@ -34,9 +33,12 @@ class CustomerBehaviorTest {
 
     @Test
     @Throws(ExceptionHandler::class)
-    fun iShouldGetAllCustomers() {
-        val allCustomers = dataObjectFactory.customerDataObject.getAllCustomer
-        TestCase.assertTrue(allCustomers.size > 1)
+    fun iShouldCreateCustomer() {
+        val customer = Customer("Chandra Nalaar", "chandranalaar@gmail.com")
+        val id = dataObjectFactory.customerDataObject.insertCustomer(customer)
+        val customerAfterInsert = dataObjectFactory.customerDataObject.getCustomerById(id)
+        assertEquals(customer.emailAddress,"chandranalaar@gmail.com")
+        assertEquals(customerAfterInsert.customerName,"Chandra Nalaar")
     }
 
     @Test
@@ -48,13 +50,6 @@ class CustomerBehaviorTest {
 
     @Test
     @Throws(ExceptionHandler::class)
-    fun iShouldntGetNonExistingCustomerById() {
-        val customer = dataObjectFactory.customerDataObject.getCustomerById(500L)
-        assertNull(customer)
-    }
-
-    @Test
-    @Throws(ExceptionHandler::class)
     fun iShouldntGetNonExistingCustomerByName() {
         val customer = dataObjectFactory.customerDataObject.getCustomerByName("Jace Beleren")
         assertNull(customer)
@@ -62,13 +57,9 @@ class CustomerBehaviorTest {
 
     @Test
     @Throws(ExceptionHandler::class)
-    fun iShouldCreateCustomer() {
-        val customer = Customer("Chandra Nalaar", "chandranalaar@gmail.com")
-        val id = dataObjectFactory.customerDataObject.insertCustomer(customer)
-        val customerAfterInsert = dataObjectFactory.customerDataObject.getCustomerById(id)
-        assertEquals(customer.emailAddress,"chandranalaar@gmail.com")
-        assertEquals(customerAfterInsert.customerName,"Chandra Nalaar")
-
+    fun iShouldGetAllCustomers() {
+        val allCustomers = dataObjectFactory.customerDataObject.getAllCustomer
+        assertEquals(allCustomers.size, 0)
     }
 
     @Test

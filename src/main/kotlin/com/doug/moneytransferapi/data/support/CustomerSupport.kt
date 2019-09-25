@@ -29,7 +29,7 @@ class CustomerSupport : CustomerDataObject {
                     val customer = Customer(
                         rs.getLong("CustomerId"),
                         rs.getString("CustomerName"),
-                        rs.getString("EmailAddress)")
+                        rs.getString("EmailAddress")
                     )
                     if (log.isDebugEnabled)
                         log.debug("getAllCustomers() Retrieve Customer: $customer")

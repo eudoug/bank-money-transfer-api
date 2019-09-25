@@ -49,7 +49,7 @@ class Customer {
     }
 
     override fun toString(): String {
-        return "customer{" +
+        return "Customer{" +
                 "customerId=" + customerId +
                 ", customerName='" + customerName + '\''.toString() +
                 ", emailAddress='" + emailAddress + '\''.toString() +
