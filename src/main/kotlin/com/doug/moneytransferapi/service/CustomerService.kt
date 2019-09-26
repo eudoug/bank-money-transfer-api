@@ -40,7 +40,7 @@ class CustomerService {
         return factory.customerDataObject.getCustomerByName(customerName) ?: throw WebApplicationException(
             "Customer Not Found",
             Response.Status.NOT_FOUND
-        ) as Throwable
+        )
     }
 
     /**

@@ -24,9 +24,6 @@ Program Language: Kotlin and Java 11
 Development Process: TDD (A software development process that relies on the repetition 
 of a very short development cycle, when tests are created before the feature, granting 100% coverage)
 
-Deployment: Docker (A set of platform-as-a-service (PaaS) products that use OS-level 
-virtualization to deliver software in packages called containers)
-
 Container: Jetty (Jetty is a HTTP server and Container Servlet 100% written in Java)
 
 DataBase: H2 (H2 is a relational database management system written in Java)
@@ -51,7 +48,7 @@ As this project was created based on TDD process, all the tests were designed us
 Integration tests was created based on standards most used on mature projects and following the BDD process.
 
 You can also test the application using the Postman Collection provided on the project. You just need to 
-import the JSON following this tutorial: [a relative link](./Postman.md)
+import the JSON following this tutorial: [a relative link](./document/Postman.md)
 
 
 ## API Endpoints
@@ -62,7 +59,7 @@ The OpenAPI Specification is language-agnostic and is used right now on projects
 
 With an OpenAPI spec, an API can be easily managed with some API management tools like Google Apigee.
 
-The project spec (OpenApi conception) can be found on the link [a link](https://app.swaggerhub.com/apis/eudoug/DougMoneyTransfer/1.0.0) or inside project [a relative link](OpenAPI.yaml). 
+The project spec (OpenApi conception) can be found on the link [a link](https://app.swaggerhub.com/apis/eudoug/DougMoneyTransfer/1.0.0) or inside project [a relative link](./document/OpenAPI.yaml). 
 
 To understand the API endpoints the swagger editor shows the following information: 
 
@@ -84,9 +81,8 @@ To understand the API endpoints the swagger editor shows the following informati
 
 ## API Installation
 
-For this API there are some options to run:
+For this API you should generate a package to run the application:
 
 1. Run application locally using your preferred IDE or do a maven package and run the jar
-2. Execute the docker build on the root folder and them do a docker run {containerId}
 
 To access the API you can use: http://localhost:8081
