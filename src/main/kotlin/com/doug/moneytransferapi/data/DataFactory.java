@@ -7,8 +7,7 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.log4j.Logger;
 import org.h2.tools.RunScript;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,7 +19,7 @@ public class DataFactory extends DataObjectFactory {
     private static final String H2_USER = Utils.getStringProperty("h2_user");
     private static final String H2_PASSWORD = Utils.getStringProperty("h2_password");
     private static Logger log = Logger.getLogger(DataFactory.class);
-    private static final String CONFIG_FILE = "./src/main/resources/database.sql";
+    private static final String CONFIG_FILE = "/database.sql";
 
     private final CustomerDataObject customerObject = new CustomerSupport();
     private final AccountDataObject accountObject = new AccountSupport();
@@ -52,12 +51,13 @@ public class DataFactory extends DataObjectFactory {
         Connection connection = null;
         try {
             connection = DataFactory.getConnection();
-            RunScript.execute(connection, new FileReader(CONFIG_FILE));
+
+            InputStream in = getClass().getResourceAsStream(CONFIG_FILE);
+
+            RunScript.execute(connection, new BufferedReader(new InputStreamReader(in)));
+
         } catch (SQLException e) {
             log.error("generateApplicationData(): Error populating customer data: ", e);
-            throw new RuntimeException(e);
-        } catch (FileNotFoundException e) {
-            log.error("generateApplicationData(): Error finding test script file ", e);
             throw new RuntimeException(e);
         } finally {
             DbUtils.closeQuietly(connection);
