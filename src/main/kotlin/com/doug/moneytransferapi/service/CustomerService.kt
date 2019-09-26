@@ -61,7 +61,7 @@ class CustomerService {
     }
 
     /**
-     * Find by Customer Id
+     * Update by Customer Id
      * @param customerId
      * @param customer
      * @return

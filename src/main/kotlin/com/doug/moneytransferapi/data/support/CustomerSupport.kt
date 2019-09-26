@@ -33,6 +33,7 @@ class CustomerSupport : CustomerDataObject {
                     )
                     if (log.isDebugEnabled)
                         log.debug("getAllCustomers() Retrieve Customer: $customer")
+                    customers.add(customer)
                 }
                 return customers
             } catch (e: SQLException) {

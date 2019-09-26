@@ -22,23 +22,23 @@ class AccountSupport : AccountDataObject {
             var connection: Connection? = null
             var statement: PreparedStatement? = null
             var resultSet: ResultSet? = null
-            val allAccounts = ArrayList<Account>()
+            val accounts = ArrayList<Account>()
             try {
                 connection = DataFactory.getConnection()
                 statement = connection.prepareStatement(SQL_GET_ALL_ACC)
                 resultSet = statement.run { executeQuery() }
                 while (resultSet.run { next() }) {
-                    val acc = Account(
+                    val account = Account(
                         accountId = resultSet.getLong("AccountId"),
                         customerName = resultSet.getString("CustomerName"),
                         balance = resultSet.getBigDecimal("Balance"),
                         currencyCode = resultSet.getString("CurrencyCode")
                     )
                     if (log.isDebugEnabled)
-                        log.debug("getAllAccounts(): Get  Account $acc")
-                    allAccounts.add(acc)
+                        log.debug("getAllAccounts(): Get  Account $account")
+                    accounts.add(account)
                 }
-                return allAccounts
+                return accounts
             } catch (e: SQLException) {
                 throw ExceptionHandler("getAccountById(): Error reading account data", e)
             } finally {

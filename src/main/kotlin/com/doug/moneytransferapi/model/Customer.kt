@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 class Customer {
 
-    @JsonIgnore
+    @JsonProperty(required = true)
     var customerId: Long = 0
 
     @JsonProperty(required = true)

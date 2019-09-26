@@ -66,7 +66,7 @@ class AccountService {
      * @return
      * @throws ExceptionHandler
      */
-    @PUT
+    @POST
     @Path("/create")
     @Throws(ExceptionHandler::class)
     fun createAccount(account: Account): Account? {

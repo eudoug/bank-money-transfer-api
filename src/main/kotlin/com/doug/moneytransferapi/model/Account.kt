@@ -6,7 +6,7 @@ import java.math.BigDecimal
 
 class  Account {
 
-    @JsonIgnore
+    @JsonProperty(required = true)
     var accountId: Long = 0
 
     @JsonProperty(required = true)
