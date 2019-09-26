@@ -19,7 +19,7 @@
         <jackson.version>2.9.9</jackson.version>
         <jetty.version>9.4.18.v20190429</jetty.version>
         <http.version>4.5.10</http.version>
-        <jersey.version>2.26</jersey.version>
+        <jersey.version>2.29</jersey.version>
         <dbutils.version>1.7</dbutils.version>
         <mockito.version>1.10.19</mockito.version>
         <jaxb.version>2.3.0</jaxb.version>
@@ -155,9 +155,10 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-moxy</artifactId>
+            <artifactId>jersey-media-json-processing</artifactId>
             <version>${jersey.version}</version>
         </dependency>
+
 
         <!-- JAXB -->
         <dependency>
@@ -200,28 +201,30 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4.1</version>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
                 <configuration>
-                    <!-- get all project dependencies -->
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <!-- MainClass in mainfest make a executable jar -->
-                    <archive>
-                        <manifest>
-                            <mainClass>com.doug.moneytransferapi.Application</mainClass>
-                        </manifest>
-                    </archive>
+                    <createDependencyReducedPom>true</createDependencyReducedPom>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                        </filter>
+                    </filters>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
-                        <!-- bind to the packaging phase -->
                         <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>shade</goal>
                         </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.doug.moneytransferapi.Application</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -261,8 +264,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>1.11</source>
+                    <target>1.11</target>
                 </configuration>
             </plugin>
             <plugin>
