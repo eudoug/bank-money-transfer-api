@@ -20,6 +20,7 @@ public class DataFactory extends DataObjectFactory {
     private static final String H2_USER = Utils.getStringProperty("h2_user");
     private static final String H2_PASSWORD = Utils.getStringProperty("h2_password");
     private static Logger log = Logger.getLogger(DataFactory.class);
+    private static final String CONFIG_FILE = "./src/main/resources/database.sql";
 
     private final CustomerDataObject customerObject = new CustomerSupport();
     private final AccountDataObject accountObject = new AccountSupport();
@@ -43,13 +44,15 @@ public class DataFactory extends DataObjectFactory {
     }
 
 
+
+
     @Override
     public void generateApplicationData() {
         log.info("Populating Test Customer Table and data ..... ");
         Connection connection = null;
         try {
             connection = DataFactory.getConnection();
-            RunScript.execute(connection, new FileReader("src/main/resources/database.sql"));
+            RunScript.execute(connection, new FileReader(CONFIG_FILE));
         } catch (SQLException e) {
             log.error("generateApplicationData(): Error populating customer data: ", e);
             throw new RuntimeException(e);
