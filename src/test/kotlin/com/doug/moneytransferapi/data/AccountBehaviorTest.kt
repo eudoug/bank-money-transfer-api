@@ -63,7 +63,7 @@ class AccountBehaviorTest {
     @Throws(ExceptionHandler::class)
     fun iShouldDeleteAccount() {
         val rowCount = dataObjectFactory.accountDataObject.deleteAccountById(2L)
-        // assert one row(user) deleted
+        // assert one row deleted
         assertEquals(rowCount, 1)
     }
 
@@ -85,20 +85,20 @@ class AccountBehaviorTest {
         val rowsUpdated = dataObjectFactory.accountDataObject.updateAccountBalance(1L, deltaDeposit)
         assertEquals(rowsUpdated,1)
         assertEquals(dataObjectFactory.accountDataObject.getAccountById(1L).balance!!, afterDeposit)
-        val deltaWithDraw = BigDecimal(-50).setScale(4, RoundingMode.HALF_EVEN)
-        val afterWithDraw = BigDecimal(300).setScale(4, RoundingMode.HALF_EVEN)
-        val rowsUpdatedW = dataObjectFactory.accountDataObject.updateAccountBalance(1L, deltaWithDraw)
-        assertEquals(rowsUpdatedW, 1)
-        assertEquals(dataObjectFactory.accountDataObject.getAccountById(1L).balance!!, afterWithDraw)
+        val deltaWithdraw = BigDecimal(-50).setScale(4, RoundingMode.HALF_EVEN)
+        val afterWithdraw = BigDecimal(300).setScale(4, RoundingMode.HALF_EVEN)
+        val rowsUpdatedWithdraw = dataObjectFactory.accountDataObject.updateAccountBalance(1L, deltaWithdraw)
+        assertEquals(rowsUpdatedWithdraw, 1)
+        assertEquals(dataObjectFactory.accountDataObject.getAccountById(1L).balance!!, afterWithdraw)
 
     }
 
     @Test(expected = ExceptionHandler::class)
     @Throws(ExceptionHandler::class)
     fun iShouldntUpdateAccountBalanceNotEnoughFund() {
-        val deltaWithDraw = BigDecimal(-50000).setScale(4, RoundingMode.HALF_EVEN)
-        val rowsUpdatedW = dataObjectFactory.accountDataObject.updateAccountBalance(1L, deltaWithDraw)
-        assertEquals(rowsUpdatedW, 0)
+        val deltaWithdraw = BigDecimal(-50000).setScale(4, RoundingMode.HALF_EVEN)
+        val rowsUpdatedWithdraw = dataObjectFactory.accountDataObject.updateAccountBalance(1L, deltaWithdraw)
+        assertEquals(rowsUpdatedWithdraw, 0)
 
     }
 }

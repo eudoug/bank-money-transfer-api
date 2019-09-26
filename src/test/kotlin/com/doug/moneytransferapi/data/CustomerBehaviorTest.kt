@@ -66,7 +66,7 @@ class CustomerBehaviorTest {
     fun iShouldUpdateCustomer() {
         val customer = Customer(1L.toString(), "ajani@gmail.com")
         val rowCount = dataObjectFactory.customerDataObject.updateCustomer(1L, customer)
-        // assert one row(customer) updated
+        // assert one row updated
         assertEquals(rowCount, 1)
         assertEquals(dataObjectFactory.customerDataObject.getCustomerById(1L).emailAddress,"ajani@gmail.com")
     }
@@ -75,8 +75,8 @@ class CustomerBehaviorTest {
     @Throws(ExceptionHandler::class)
     fun iShouldntUpdateNonExistingCustomer() {
         val customer = Customer(500L.toString(), "Jace Beleren")
-        val rowCount = dataObjectFactory.customerDataObject.updateCustomer(500L, customer)
-        // assert one row(customer) updated
+        val rowCount = dataObjectFactory.customerDataObject.updateCustomer(156, customer)
+        // assert one row updated
         assertEquals(rowCount, 0)
     }
 
@@ -84,15 +84,15 @@ class CustomerBehaviorTest {
     @Throws(ExceptionHandler::class)
     fun iShouldDeleteCustomer() {
         val rowCount = dataObjectFactory.customerDataObject.deleteCustomer(1L)
-        // assert one row(customer) deleted
+        // assert one row deleted
         assertEquals(rowCount, 1)
     }
 
     @Test
     @Throws(ExceptionHandler::class)
     fun iShouldntDeleteNonExistingCustomer() {
-        val rowCount = dataObjectFactory.customerDataObject.deleteCustomer(500L)
-        // assert no row(customer) deleted
+        val rowCount = dataObjectFactory.customerDataObject.deleteCustomer(156L)
+        // assert no row deleted
         assertEquals(rowCount, 0)
     }
 }

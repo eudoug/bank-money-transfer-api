@@ -18,18 +18,18 @@ class CustomerSupport : CustomerDataObject {
         @Throws(ExceptionHandler::class)
         get() {
             var connection: Connection? = null
-            var stmt: PreparedStatement? = null
-            var rs: ResultSet? = null
+            var statement: PreparedStatement? = null
+            var resultSet: ResultSet? = null
             val customers = ArrayList<Customer>()
             try {
                 connection = DataFactory.getConnection()
-                stmt = connection.prepareStatement(SQL_GET_ALL_CUSTOMERS)
-                rs = stmt.run { executeQuery() }
-                while (rs.next()) {
+                statement = connection.prepareStatement(SQL_GET_ALL_CUSTOMERS)
+                resultSet = statement.run { executeQuery() }
+                while (resultSet.next()) {
                     val customer = Customer(
-                        rs.getLong("CustomerId"),
-                        rs.getString("CustomerName"),
-                        rs.getString("EmailAddress")
+                        customerId = resultSet.getLong("CustomerId"),
+                        customerName = resultSet.getString("CustomerName"),
+                        emailAddress = resultSet.getString("EmailAddress")
                     )
                     if (log.isDebugEnabled)
                         log.debug("getAllCustomers() Retrieve Customer: $customer")
@@ -38,7 +38,7 @@ class CustomerSupport : CustomerDataObject {
             } catch (e: SQLException) {
                 throw ExceptionHandler(ERROR_READING_DATA, e)
             } finally {
-                DbUtils.closeQuietly(connection, stmt, rs)
+                DbUtils.closeQuietly(connection, statement, resultSet)
             }
         }
 
@@ -48,19 +48,19 @@ class CustomerSupport : CustomerDataObject {
     @Throws(ExceptionHandler::class)
     override fun getCustomerById(customerId: Long): Customer {
         var connection: Connection? = null
-        var stmt: PreparedStatement? = null
-        var rs: ResultSet? = null
+        var statement: PreparedStatement? = null
+        var resultSet: ResultSet? = null
         var customer: Customer? = null
         try {
             connection = DataFactory.getConnection()
-            stmt = connection.prepareStatement(SQL_GET_CUSTOMER_BY_ID)
-            stmt.setLong(1, customerId)
-            rs = stmt.executeQuery()
-            if (rs!!.next()) {
+            statement = connection.prepareStatement(SQL_GET_CUSTOMER_BY_ID)
+            statement.setLong(1, customerId)
+            resultSet = statement.executeQuery()
+            if (resultSet!!.next()) {
                 customer = Customer(
-                    rs.getLong("customerId"),
-                    rs.getString("customerName"),
-                    rs.getString("emailAddress")
+                    customerId = resultSet.getLong("customerId"),
+                    customerName = resultSet.getString("customerName"),
+                    emailAddress = resultSet.getString("emailAddress")
                 )
                 if (log.isDebugEnabled)
                     log.debug("getCustomerById(): Retrieve Customer: $customer")
@@ -69,7 +69,7 @@ class CustomerSupport : CustomerDataObject {
         } catch (e: SQLException) {
             throw ExceptionHandler(ERROR_READING_DATA, e)
         } finally {
-            DbUtils.closeQuietly(connection, stmt, rs)
+            DbUtils.closeQuietly(connection, statement, resultSet)
         }
     }
 
@@ -79,19 +79,19 @@ class CustomerSupport : CustomerDataObject {
     @Throws(ExceptionHandler::class)
     override fun getCustomerByName(customerName: String): Customer? {
         var connection: Connection? = null
-        var stmt: PreparedStatement? = null
-        var rs: ResultSet? = null
+        var statement: PreparedStatement? = null
+        var resultSet: ResultSet? = null
         var customer: Customer? = null
         try {
             connection = DataFactory.getConnection()
-            stmt = connection.prepareStatement(SQL_GET_CUSTOMER_BY_NAME)
-            stmt.setString(1, customerName)
-            rs = stmt.executeQuery()
-            if (rs.next()) {
+            statement = connection.prepareStatement(SQL_GET_CUSTOMER_BY_NAME)
+            statement.setString(1, customerName)
+            resultSet = statement.executeQuery()
+            if (resultSet.next()) {
                 customer = Customer(
-                    customerId = rs.getLong("CustomerId"),
-                    customerName = rs.getString("CustomerName"),
-                    emailAddress = rs.getString("EmailAddress")
+                    customerId = resultSet.getLong("CustomerId"),
+                    customerName = resultSet.getString("CustomerName"),
+                    emailAddress = resultSet.getString("EmailAddress")
                 )
                 if (log.isDebugEnabled) {
                     log.debug("Retrieve Customer: $customer")
@@ -101,7 +101,7 @@ class CustomerSupport : CustomerDataObject {
         } catch (e: SQLException) {
             throw ExceptionHandler(ERROR_READING_DATA, e)
         } finally {
-            DbUtils.closeQuietly(connection, stmt, rs)
+            DbUtils.closeQuietly(connection, statement, resultSet)
         }
     }
 
@@ -111,19 +111,19 @@ class CustomerSupport : CustomerDataObject {
     @Throws(ExceptionHandler::class)
     override fun insertCustomer(customer: Customer): Long {
         var connection: Connection? = null
-        var stmt: PreparedStatement? = null
+        var statement: PreparedStatement? = null
         var autoGeneratedId: ResultSet? = null
         try {
             connection = DataFactory.getConnection()
-            stmt = connection.prepareStatement(SQL_INSERT_CUSTOMER, Statement.RETURN_GENERATED_KEYS)
-            stmt.setString(1, customer.customerName)
-            stmt.setString(2, customer.emailAddress)
-            val affectedRows = stmt.executeUpdate()
+            statement = connection.prepareStatement(SQL_INSERT_CUSTOMER, Statement.RETURN_GENERATED_KEYS)
+            statement.setString(1, customer.customerName)
+            statement.setString(2, customer.emailAddress)
+            val affectedRows = statement.executeUpdate()
             if (affectedRows == 0) {
                 log.error("insertCustomer(): Creating customer failed, no rows affected.$customer")
                 throw ExceptionHandler("Customers Cannot be created")
             }
-            autoGeneratedId = stmt.generatedKeys
+            autoGeneratedId = statement.generatedKeys
             if (autoGeneratedId.run { next() }) {
                 return autoGeneratedId.getLong(1)
             } else {
@@ -134,7 +134,7 @@ class CustomerSupport : CustomerDataObject {
             log.error("Error Inserting Customer :$customer")
             throw ExceptionHandler(ERROR_READING_DATA, e)
         } finally {
-            DbUtils.closeQuietly(connection, stmt, autoGeneratedId)
+            DbUtils.closeQuietly(connection, statement, autoGeneratedId)
         }
 
     }
@@ -145,21 +145,21 @@ class CustomerSupport : CustomerDataObject {
     @Throws(ExceptionHandler::class)
     override fun updateCustomer(customerId: Long?, customer: Customer): Int {
         var connection: Connection? = null
-        var stmt: PreparedStatement? = null
+        var statement: PreparedStatement? = null
 
         try {
             connection = DataFactory.getConnection()
-            stmt = connection.prepareStatement(SQL_UPDATE_CUSTOMER)
-            stmt.setString(1, customer.customerName)
-            stmt.setString(2, customer.emailAddress)
-            stmt.setLong(3, customerId!!)
-            return stmt.executeUpdate()
+            statement = connection.prepareStatement(SQL_UPDATE_CUSTOMER)
+            statement.setString(1, customer.customerName)
+            statement.setString(2, customer.emailAddress)
+            statement.setLong(3, customerId!!)
+            return statement.executeUpdate()
         } catch (e: SQLException) {
             log.error("Error Updating Customer :$customer")
             throw ExceptionHandler(ERROR_READING_DATA, e)
         } finally {
             DbUtils.closeQuietly(connection)
-            DbUtils.closeQuietly(stmt)
+            DbUtils.closeQuietly(statement)
         }
     }
 
@@ -169,19 +169,19 @@ class CustomerSupport : CustomerDataObject {
     @Throws(ExceptionHandler::class)
     override fun deleteCustomer(customerId: Long): Int {
         var connection: Connection? = null
-        var stmt: PreparedStatement? = null
+        var statement: PreparedStatement? = null
 
         try {
             connection = DataFactory.getConnection()
-            stmt = connection.prepareStatement(SQL_DELETE_CUSTOMER_BY_ID)
-            stmt.setLong(1, customerId)
-            return stmt.executeUpdate()
+            statement = connection.prepareStatement(SQL_DELETE_CUSTOMER_BY_ID)
+            statement.setLong(1, customerId)
+            return statement.executeUpdate()
         } catch (e: SQLException) {
             log.error("Error Deleting Customer :$customerId")
             throw ExceptionHandler("Error Deleting Customer Id:$customerId", e)
         } finally {
             DbUtils.closeQuietly(connection)
-            DbUtils.closeQuietly(stmt)
+            DbUtils.closeQuietly(statement)
         }
     }
 
