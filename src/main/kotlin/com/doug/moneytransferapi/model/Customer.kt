@@ -37,7 +37,9 @@ class Customer {
         val customer = other as Customer
 
         if (customerId != customer.customerId) return false
-        return if (customerName != customer.customerName) false else emailAddress == customer.emailAddress
+        return if (customerName != customer.customerName) {
+            false
+        } else emailAddress == customer.emailAddress
 
     }
 

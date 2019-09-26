@@ -13,23 +13,24 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 public class DataFactory extends DataObjectFactory {
-    private static final String h2_driver = Utils.getStringProperty("h2_driver");
-    private static final String h2_connection_url = Utils.getStringProperty("h2_connection_url");
-    private static final String h2_user = Utils.getStringProperty("h2_user");
-    private static final String h2_password = Utils.getStringProperty("h2_password");
+    private static final String H2_DRIVER = Utils.getStringProperty("h2_driver");
+    private static final String H2_CONNECTION_URL = Utils.getStringProperty("h2_connection_url");
+    private static final String H2_USER = Utils.getStringProperty("h2_user");
+    private static final String H2_PASSWORD = Utils.getStringProperty("h2_password");
     private static Logger log = Logger.getLogger(DataFactory.class);
 
     private final CustomerDataObject customerObject = new CustomerSupport();
     private final AccountDataObject accountObject = new AccountSupport();
 
     DataFactory() {
-        // init: load driver
-        DbUtils.loadDriver(h2_driver);
+        // load h2 driver
+        DbUtils.loadDriver(H2_DRIVER);
     }
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(h2_connection_url, h2_user, h2_password);
+        return DriverManager.getConnection(H2_CONNECTION_URL, H2_USER, H2_PASSWORD);
 
     }
 
@@ -40,6 +41,7 @@ public class DataFactory extends DataObjectFactory {
     public AccountDataObject getAccountDataObject() {
         return accountObject;
     }
+
 
     @Override
     public void generateApplicationData() {

@@ -12,10 +12,10 @@ public abstract class DataObjectFactory {
 
     public static DataObjectFactory getDataObjectFactory(int factoryCode) {
 
-        switch (factoryCode) {
-            default:
-                // by default using H2 in memory database
-                return new DataFactory();
+        if (factoryCode == H2) {
+            return new DataFactory();
         }
+        return new DataFactory();
+
     }
 }

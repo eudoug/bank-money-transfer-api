@@ -9,6 +9,10 @@ import java.util.Properties;
 
 public class Utils {
 
+    private Utils(){
+        throw new IllegalStateException("Utility Class");
+    }
+
     private static Properties properties = new Properties();
 
     static Logger log = Logger.getLogger(Utils.class);
@@ -30,7 +34,6 @@ public class Utils {
         }
 
     }
-
 
     public static String getStringProperty(String key) {
         String value = properties.getProperty(key);
@@ -60,23 +63,19 @@ public class Utils {
                 return Integer.parseInt(valueStr);
 
             } catch (Exception e) {
-                log.warn("getIntegerProperty(): cannot parse integer from properties file for: " + key + "fail over to default value: " + defaultVal, e);
+                log.warn(new StringBuilder().append("getIntegerProperty(): cannot parse integer from properties file for: ").
+                        append(key).append("fail over to default value: ").
+                        append(defaultVal).toString(), e);
                 return defaultVal;
             }
         }
     }
 
-    //initialise
-
     static {
         String configFileName = System.getProperty("application.properties");
 
-        if (configFileName == null) {
-            configFileName = "application.properties";
-        }
+        if (configFileName == null) configFileName = "application.properties";
         loadConfig(configFileName);
 
     }
-
-
 }

@@ -3,7 +3,9 @@ package com.doug.moneytransferapi.model
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.math.BigDecimal
 
+
 class CustomerTransaction {
+
 
     @JsonProperty(required = true)
     var currencyCode: String? = null
@@ -30,6 +32,7 @@ class CustomerTransaction {
         this.toAccountId = toAccountId
     }
 
+
     override fun equals(o: Any?): Boolean {
         if (this === o)
             return true
@@ -42,7 +45,9 @@ class CustomerTransaction {
             return false
         if (amount != that.amount)
             return false
-        return if (fromAccountId != that.fromAccountId) false else toAccountId == that.toAccountId
+        return if (fromAccountId != that.fromAccountId) {
+            false
+        } else toAccountId == that.toAccountId
 
     }
 

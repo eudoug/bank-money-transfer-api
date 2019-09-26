@@ -56,11 +56,10 @@ class AccountService {
     @Path("/{accountId}/balance")
     @Throws(ExceptionHandler::class)
     fun getBalance(@PathParam("accountId") accountId: Long) {
-        val account =
-            factory.accountDataObject.getAccountById(accountId) ?: throw WebApplicationException(
-                "Account not found",
-                Response.Status.NOT_FOUND
-            )
+        factory.accountDataObject.getAccountById(accountId) ?: throw WebApplicationException(
+            "Account not found",
+            Response.Status.NOT_FOUND
+        )
         return
     }
 

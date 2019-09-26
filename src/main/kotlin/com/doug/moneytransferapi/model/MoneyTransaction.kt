@@ -33,7 +33,6 @@ enum class MoneyTransaction {
     companion object {
 
         internal var log = Logger.getLogger(MoneyTransaction::class.java)
-
         //zero amount with scale 4 and financial rounding mode
         val zeroAmount = BigDecimal(0).setScale(4, RoundingMode.HALF_EVEN)!!
     }

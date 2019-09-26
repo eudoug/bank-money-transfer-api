@@ -45,7 +45,9 @@ class  Account {
         val account = o as Account?
 
         if (accountId != account!!.accountId) return false
-        return if (balance != account.balance) false else currencyCode == account.currencyCode
+        return if (balance != account.balance) {
+            false
+        } else currencyCode == account.currencyCode
 
     }
 
