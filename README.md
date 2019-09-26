@@ -35,11 +35,6 @@ Code Coverage: SonarLint Plugin - SonarQube
 HTTP: Apache HTTP Client (Is a compliant HTTP agent implementation based on HttpCore)
 
 
- 
-## Working on the code
-
-Clone the repository locally and open the project with your preferred IDE.
-
 
 ## Testing
 
@@ -78,11 +73,21 @@ To understand the API endpoints the swagger editor shows the following informati
 ![](./document/image%203.png)
 
 
+ 
+## Working on the code
+
+Clone the repository locally and open the project with your preferred IDE.
+
 
 ## API Installation
 
-For this API you should generate a package to run the application:
+For this API you should generate a package to run the application.
+You can follow this steps to make this application run:
 
-1. Run application locally using your preferred IDE or do a maven package and run the jar
+1. Open your preferred terminal 
+2. Go to the project root folder
+3. On the terminal type: mvn package
+4. Wait until package is created
+5. On the terminal type: java -jar money-transfer-api-1.0-SNAPSHOT.jar
 
 To access the API you can use: http://localhost:8081

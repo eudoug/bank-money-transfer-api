@@ -56,15 +56,15 @@
     <orderEntry type="library" name="Maven: com.h2database:h2:1.4.199" level="project" />
     <orderEntry type="library" name="Maven: commons-dbutils:commons-dbutils:1.7" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-server:9.2.3.v20140905" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-server:9.4.18.v20190429" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-http:9.2.3.v20140905" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-io:9.2.3.v20140905" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlets:9.2.3.v20140905" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-continuation:9.2.3.v20140905" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlet:9.2.3.v20140905" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-security:9.2.3.v20140905" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-util:9.2.3.v20140905" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-http:9.4.18.v20190429" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-io:9.4.18.v20190429" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlets:9.4.18.v20190429" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-continuation:9.4.18.v20190429" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlet:9.4.18.v20190429" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-security:9.4.18.v20190429" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-util:9.4.18.v20190429" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.9" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.9.9" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.9.9" level="project" />

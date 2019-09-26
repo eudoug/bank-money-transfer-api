@@ -49,7 +49,7 @@ class AccountApplicationSuccessScenarios : ApplicationServiceTest() {
         val statusCode = response.statusLine.statusCode
         assertEquals(statusCode, 200)
 
-        //assert the content
+        //assert the result
         val jsonString = EntityUtils.toString(response.entity)
         val account = mapper.readValue(jsonString, Account::class.java)
         assertEquals(account.customerName, "Ajani Goldmane")
@@ -65,15 +65,16 @@ class AccountApplicationSuccessScenarios : ApplicationServiceTest() {
     fun iShouldReturnSuccessWhenGetAccountBalance() {
         val uri = builder.setPath("/account/1/balance").build()
         val request = HttpGet(uri)
-        val response = client.execute(request)
+        val response = client.execute(request as HttpUriRequest?)
         val statusCode = response.statusLine.statusCode
 
-        assertEquals(statusCode,200)
-        
-        val balance = EntityUtils.toString(response.entity)
-        val result = BigDecimal(balance).setScale(4, RoundingMode.HALF_EVEN)
+        assertEquals(statusCode,204)
+
+        //assert the result
+        val jsonString = EntityUtils.toString(response.entity)
+        val balance = BigDecimal(jsonString).setScale(4, RoundingMode.HALF_EVEN)
         val dbResult = BigDecimal(300).setScale(4, RoundingMode.HALF_EVEN)
-        assertEquals(result, dbResult)
+        assertTrue(balance == dbResult)
     }
 
     /*
@@ -90,7 +91,7 @@ class AccountApplicationSuccessScenarios : ApplicationServiceTest() {
         val statusCode = response.statusLine.statusCode
         assertEquals(statusCode, 200)
 
-        //assert the content
+        //assert the result
         val jsonString = EntityUtils.toString(response.entity)
         val accounts = mapper.readValue(jsonString, Array<Account>::class.java)
         assertNotNull(accounts)
@@ -117,6 +118,8 @@ class AccountApplicationSuccessScenarios : ApplicationServiceTest() {
         assertEquals(statusCode, 200)
         val jsonString = EntityUtils.toString(response.entity)
         val accountAfterCreation = mapper.readValue(jsonString, Account::class.java)
+
+        //assert the result
         assertEquals(accountAfterCreation.customerName, "Chandra Naalar")
         assertEquals(accountAfterCreation.currencyCode, "USD")
     }
@@ -134,6 +137,8 @@ class AccountApplicationSuccessScenarios : ApplicationServiceTest() {
         request.setHeader("Content-type", "application/json")
         val response = client.execute(request)
         val statusCode = response.statusLine.statusCode
+
+        //assert the result
         assertEquals(statusCode, 200)
     }
 
