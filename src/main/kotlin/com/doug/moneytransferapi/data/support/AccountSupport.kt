@@ -14,7 +14,7 @@ import java.util.ArrayList
 
 class AccountSupport : AccountDataObject {
     /**
-     * Get all accounts.
+     * This method allow a get request that retrieve all accounts on the database.
      */
     override val allAccounts: List<Account>
         @Throws(ExceptionHandler::class)
@@ -47,7 +47,7 @@ class AccountSupport : AccountDataObject {
         }
 
     /**
-     * Get account by id
+     * This method allow a get request that retrieve an account by account id
      */
     @Throws(ExceptionHandler::class)
     override fun getAccountById(accountId: Long): Account {
@@ -80,7 +80,7 @@ class AccountSupport : AccountDataObject {
     }
 
     /**
-     * Create account
+     * This method allow to create an account
      */
     @Throws(ExceptionHandler::class)
     override fun insertAccount(account: Account): Long {
@@ -114,7 +114,7 @@ class AccountSupport : AccountDataObject {
     }
 
     /**
-     * Delete account by id
+     * This method allow to delete account by id
      */
     @Throws(ExceptionHandler::class)
     override fun deleteAccountById(accountId: Long): Int {
@@ -134,7 +134,7 @@ class AccountSupport : AccountDataObject {
     }
 
     /**
-     * Update account balance
+     * This method allow to update account balance
      */
     @Throws(ExceptionHandler::class)
     override fun updateAccountBalance(accountId: Long, deltaAmount: BigDecimal): Int {
@@ -195,7 +195,7 @@ class AccountSupport : AccountDataObject {
     }
 
     /**
-     * Transfer balance between accounts
+     * This method allow transfer balance between customers accounts
      */
     @Throws(ExceptionHandler::class)
     override fun transferAccountBalance(customerTransaction: CustomerTransaction): Int {
@@ -245,14 +245,14 @@ class AccountSupport : AccountDataObject {
                 )
             }
 
-            // check ccy is the same for both accounts
+            // check if currency is the same for both accounts
             if (fromAccount?.currencyCode != toAccount?.currencyCode) {
                 throw ExceptionHandler(
                     "Fail to transfer Fund, different currency"
                 )
             }
 
-            // check enough fund in source account
+            // check if there are enough funds in the source account
             val fromAccountLeftOver = fromAccount?.balance?.subtract(customerTransaction.amount)
             if (fromAccountLeftOver?.compareTo(MoneyTransaction.zeroAmount)!! < 0) {
                 throw ExceptionHandler("Not enough funds to transfer")
@@ -274,7 +274,7 @@ class AccountSupport : AccountDataObject {
             // If there is no error, commit the transaction
             connection.commit()
         } catch (se: SQLException) {
-            // rollback transaction if exception occurs
+            // this will allow a rollback transaction if exception occurs
             log.error(
                 "transferAccountBalance(): Customer Transaction Failed, rollback initiated for: $customerTransaction",
                 se
