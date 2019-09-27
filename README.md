@@ -24,7 +24,7 @@ Program Language: Kotlin and Java 11
 Development Process: TDD (A software development process that relies on the repetition 
 of a very short development cycle, when tests are created before the feature, granting 100% coverage)
 
-Container: Jetty (Jetty is a HTTP server and Container Servlet 100% written in Java)
+Servlet: Jetty (Jetty is a HTTP server and Container Servlet 100% written in Java)
 
 DataBase: H2 (H2 is a relational database management system written in Java)
 
