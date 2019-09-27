@@ -23,12 +23,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"customerName\": \"string\",\n  \"emailAddress\": \"string\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n  \"customerName\": \"string\",\n  \"emailAddress\": \"string\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8081/customer/create",
@@ -60,15 +55,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"customerName\": \"string\",\n  \"emailAddress\": \"string\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n  \"customerName\": \"string\",\n  \"emailAddress\": \"string\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8081/customer/create",
+							"raw": "http://localhost:8081/customer/{customerId}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -76,7 +66,7 @@
 							"port": "8081",
 							"path": [
 								"customer",
-								"create"
+								"{customerId}"
 							]
 						},
 						"description": "Update an existing customer"
@@ -96,7 +86,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8081/customer/create/{customerId}",
+							"raw": "http://localhost:8081/customer/{customerId}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -104,7 +94,6 @@
 							"port": "8081",
 							"path": [
 								"customer",
-								"create",
 								"{customerId}"
 							]
 						},
@@ -118,7 +107,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/customer/all",
+							"raw": "http://localhost:8081/customer/{customerName}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -126,7 +115,7 @@
 							"port": "8081",
 							"path": [
 								"customer",
-								"all"
+								"{customerName}"
 							]
 						},
 						"description": "Get customer by specified name"
@@ -139,7 +128,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/customer/{customerName}",
+							"raw": "http://localhost:8081/customer/all",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -147,7 +136,7 @@
 							"port": "8081",
 							"path": [
 								"customer",
-								"{customerName}"
+								"all"
 							]
 						},
 						"description": "Get all customer"
@@ -174,23 +163,18 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"customerName\": \"String\",\n    \"balance\": 0,\n    \"currencyCode\": \"String\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"customerName\": \"String\",\n    \"balance\": 0,\n    \"currencyCode\": \"String\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8081/customer/account",
+							"raw": "http://localhost:8081/account/create",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"customer",
-								"account"
+								"account",
+								"create"
 							]
 						},
 						"description": "Create a new account"
@@ -203,15 +187,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/customer/account",
+							"raw": "http://localhost:8081/account/{accountId}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"customer",
-								"account"
+								"account",
+								"{accountId}"
 							]
 						},
 						"description": "Get a specified account"
@@ -224,14 +208,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/customer/account",
+							"raw": "http://localhost:8081/account",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"customer",
 								"account"
 							]
 						},
@@ -245,14 +228,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/customer/account/all",
+							"raw": "http://localhost:8081/account/all",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"customer",
 								"account",
 								"all"
 							]
@@ -267,14 +249,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/customer/account/{accountId}/balance",
+							"raw": "http://localhost:8081/account/{accountId}/balance",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"customer",
 								"account",
 								"{accountId}",
 								"balance"
@@ -290,14 +271,13 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/customer/account/{accountId}/withdraw/{amount}",
+							"raw": "http://localhost:8081/account/{accountId}/withdraw/{amount}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"customer",
 								"account",
 								"{accountId}",
 								"withdraw",
@@ -314,14 +294,13 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/customer/account/{accountId}/deposit/{amount}",
+							"raw": "http://localhost:8081/account/{accountId}/deposit/{amount}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"customer",
 								"account",
 								"{accountId}",
 								"deposit",
@@ -352,22 +331,18 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"currencyCode\": \"string\",\n  \"amount\": 0,\n  \"fromAccountId\": 0,\n  \"toAccountId\": 0\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n  \"currencyCode\": \"USD\",\n  \"amount\": 30,\n  \"fromAccountId\": 1,\n  \"toAccountId\": 2\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8081/transaction",
+							"raw": "http://localhost:8081/transfer/money",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"transaction"
+								"transfer",
+								"money"
 							]
 						},
 						"description": "Perform a money transfer transaction"

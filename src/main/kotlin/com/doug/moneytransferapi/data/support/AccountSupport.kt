@@ -195,7 +195,7 @@ class AccountSupport : AccountDataObject {
     }
 
     /**
-     * Transfer balance between two accounts.
+     * Transfer balance between accounts
      */
     @Throws(ExceptionHandler::class)
     override fun transferAccountBalance(customerTransaction: CustomerTransaction): Int {
@@ -222,7 +222,7 @@ class AccountSupport : AccountDataObject {
                     currencyCode = resultSet.getString("CurrencyCode")
                 )
                 if (log.isDebugEnabled)
-                    log.debug("""transferAccountBalance from Account: $fromAccount""")
+                    log.debug("""Transfer Balance from Account: $fromAccount""")
             }
             lockStatement = connection.prepareStatement(SQL_LOCK_ACC_BY_ID)
             lockStatement.setLong(1, customerTransaction.toAccountId!!)
@@ -235,27 +235,27 @@ class AccountSupport : AccountDataObject {
                     currencyCode = resultSet.getString("CurrencyCode")
                 )
                 if (log.isDebugEnabled)
-                    log.debug("""transferAccountBalance to Account: $toAccount""")
+                    log.debug("""Transfer Balance to Account: $toAccount""")
             }
 
             // check transaction currency
             if (fromAccount?.currencyCode != customerTransaction.currencyCode) {
                 throw ExceptionHandler(
-                    "Fail to transfer Fund, transaction ccy are different from source/destination"
+                    "Fail to transfer Fund, currency are different"
                 )
             }
 
             // check ccy is the same for both accounts
             if (fromAccount?.currencyCode != toAccount?.currencyCode) {
                 throw ExceptionHandler(
-                    "Fail to transfer Fund, the source and destination account are in different currency"
+                    "Fail to transfer Fund, different currency"
                 )
             }
 
             // check enough fund in source account
             val fromAccountLeftOver = fromAccount?.balance?.subtract(customerTransaction.amount)
             if (fromAccountLeftOver?.compareTo(MoneyTransaction.zeroAmount)!! < 0) {
-                throw ExceptionHandler("Not enough Fund from source Account ")
+                throw ExceptionHandler("Not enough funds to transfer")
             }
 
             // proceed with update
