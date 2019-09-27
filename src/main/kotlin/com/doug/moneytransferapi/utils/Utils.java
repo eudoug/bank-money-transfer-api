@@ -44,7 +44,7 @@ public class Utils {
     }
 
     /**
-     * @param key:       property key
+     * @param key:property key
      * @param defaultVal the default value if the key not present in config file
      * @return string property based on lookup key
      */
