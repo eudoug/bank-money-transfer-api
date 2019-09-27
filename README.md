@@ -46,7 +46,7 @@ You can also test the application using the Postman Collection provided on the p
 import the JSON following this tutorial: [a relative link](./document/Postman.md)
 
 
-## API Endpoints
+## API Endpoints and Data Model
 
 To design the API was used the OpenAPI specification originally known as the Swagger Specification.
 
@@ -54,7 +54,9 @@ The OpenAPI Specification is language-agnostic and is used right now on projects
 
 With an OpenAPI spec, an API can be easily managed with some API management tools like Google Apigee.
 
-The project spec (OpenApi conception) can be found on the link [a link](https://app.swaggerhub.com/apis/eudoug/DougMoneyTransfer/1.0.0) or inside project [a relative link](./document/OpenAPI.yaml). 
+The project specification (OpenApi conception) can be found on the link [a link](https://app.swaggerhub.com/apis/eudoug/DougMoneyTransfer/1.0.0) or inside project [a relative link](./document/OpenAPI.yaml). 
+
+This yaml shows the data model and all endpoints provided by the API
 
 To understand the API endpoints the swagger editor shows the following information: 
 
