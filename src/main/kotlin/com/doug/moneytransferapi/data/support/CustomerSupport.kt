@@ -12,7 +12,7 @@ import java.util.ArrayList
 class CustomerSupport : CustomerDataObject {
 
     /**
-     * Find all customer
+     * This method allow a get request that retrieve all customers on the database.
      */
     override val allCustomer: List<Customer>
         @Throws(ExceptionHandler::class)
@@ -44,7 +44,7 @@ class CustomerSupport : CustomerDataObject {
         }
 
     /**
-     * Find customer by customerId
+     * This method allow a get request that retrieve an customer by customer id
      */
     @Throws(ExceptionHandler::class)
     override fun getCustomerById(customerId: Long): Customer {
@@ -75,7 +75,7 @@ class CustomerSupport : CustomerDataObject {
     }
 
     /**
-     * Find customer by customerName
+     * This method allow a get request that retrieve an customer by customerName
      */
     @Throws(ExceptionHandler::class)
     override fun getCustomerByName(customerName: String): Customer? {
@@ -107,7 +107,7 @@ class CustomerSupport : CustomerDataObject {
     }
 
     /**
-     * Save Customer
+     * This method allow insert a new customer
      */
     @Throws(ExceptionHandler::class)
     override fun insertCustomer(customer: Customer): Long {
@@ -141,7 +141,7 @@ class CustomerSupport : CustomerDataObject {
     }
 
     /**
-     * Update Customer
+     * This method allow to update a existing Customer
      */
     @Throws(ExceptionHandler::class)
     override fun updateCustomer(customerId: Long?, customer: Customer): Int {
@@ -165,7 +165,7 @@ class CustomerSupport : CustomerDataObject {
     }
 
     /**
-     * Delete Customer
+     * This method allow delete a Customer
      */
     @Throws(ExceptionHandler::class)
     override fun deleteCustomer(customerId: Long): Int {
