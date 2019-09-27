@@ -110,7 +110,7 @@ class AccountService {
         }
         val delta = amount.negate()
         if (log.isDebugEnabled)
-            log.debug("Withdraw service: delta change to account  $delta Account ID = $accountId")
+            log.debug("Withdraw service:  $delta Account ID = $accountId")
         factory.accountDataObject.updateAccountBalance(accountId, delta.setScale(4, RoundingMode.HALF_EVEN))
         return factory.accountDataObject.getAccountById(accountId)
     }

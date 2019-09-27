@@ -6,7 +6,7 @@ import java.math.RoundingMode
 import java.util.*
 
 /**
- * Utilities class to operate on money
+ * Utilities class to operate with money
  */
 enum class MoneyTransaction {
 
@@ -33,7 +33,7 @@ enum class MoneyTransaction {
     companion object {
 
         internal var log = Logger.getLogger(MoneyTransaction::class.java)
-        //zero amount with scale 4 and financial rounding mode
+        // Amount with scale 4 and following the financial rounding mode
         val zeroAmount = BigDecimal(0).setScale(4, RoundingMode.HALF_EVEN)!!
     }
 

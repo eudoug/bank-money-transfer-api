@@ -12,6 +12,11 @@ import javax.ws.rs.ext.Provider
 @Provider
 class ExceptionService : ExceptionMapper<ExceptionHandler> {
 
+    /**
+     * Mapping exception to response
+     * @return
+     * @throws ExceptionHandler
+     */
     override fun toResponse(daoException: ExceptionHandler): Response {
         if (log.isDebugEnabled) {
             log.debug("Mapping exception to Response....")

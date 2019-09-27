@@ -36,7 +36,7 @@ class CustomerService {
     @Throws(ExceptionHandler::class)
     fun getCustomerByName(@PathParam("customerName") customerName: String): Customer {
         if (log.isDebugEnabled)
-            log.debug("Request Received for get Customer by Name $customerName")
+            log.debug("Request Received to Customer by Name $customerName")
         return factory.customerDataObject.getCustomerByName(customerName) ?: throw WebApplicationException(
             "Customer Not Found",
             Response.Status.NOT_FOUND
