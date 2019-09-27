@@ -88,6 +88,7 @@ You can follow this steps to make this application run:
 2. Go to the project root folder
 3. On the terminal type: mvn package
 4. Wait until package is created
+5. Navigate to the target folder
 5. On the terminal type: java -jar money-transfer-api-1.0-SNAPSHOT.jar
 
 To access the API you can use: http://localhost:8081
