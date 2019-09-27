@@ -15,8 +15,8 @@ import kotlin.test.assertEquals
 /**
  * Integration testing for RestAPI
  * Test data are initialised from src/test/resources/database.sql
- * INSERT INTO Customer (CustomerName, EmailAddress) VALUES ('Ajani','ajanigoldmane@gmail.com');  --ID=1
- * INSERT INTO Customer (CustomerName, EmailAddress) VALUES ('Sorin','sorinmarkov@gmail.com');  --ID=2
+ * INSERT INTO Customer (CustomerName, EmailAddress) VALUES ('Ajani','ajanigoldmane@gmail.com'), id 1
+ * INSERT INTO Customer (CustomerName, EmailAddress) VALUES ('Sorin','sorinmarkov@gmail.com'), id 2
  */
 class CustomerApplicationNotFoundScenarios : ApplicationServiceTest() {
 
