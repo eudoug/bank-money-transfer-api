@@ -12,35 +12,36 @@ import javax.ws.rs.WebApplicationException
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
-@Path("/transaction")
+@Path("/transfer")
 @Produces(MediaType.APPLICATION_JSON)
-class TransactionService {
+class TransferService {
 
     private val dataFactory = DataObjectFactory.getDataObjectFactory(DataObjectFactory.H2)
 
     /**
      * Transfer fund between two accounts.
-     * @param transaction
+     * @param transfer
      * @return
      * @throws ExceptionHandler
      */
     @POST
     @Throws(ExceptionHandler::class)
-    fun transferFund(transaction: CustomerTransaction): Response {
+    fun transferFund(transfer: CustomerTransaction): Response {
 
-        val currency = transaction.currencyCode
-        if (currency?.let { MoneyTransaction.INSTANCE.validateCurrencyCode(it) }!!) {
-            val updateCount = dataFactory.accountDataObject.transferAccountBalance(transaction)
+        val currency = transfer.currencyCode
+        if (MoneyTransaction.INSTANCE.validateCurrencyCode(currency!!)) {
+            val updateCount = dataFactory.accountDataObject.transferAccountBalance(transfer)
             return if (updateCount == 2) {
                 Response.status(Response.Status.OK).build()
             } else {
-                // transaction failed
+                // transfer failed
                 throw WebApplicationException("Transaction failed", Response.Status.BAD_REQUEST)
             }
 
         } else {
             throw WebApplicationException("Currency Code Invalid ", Response.Status.BAD_REQUEST)
         }
+
 
     }
 

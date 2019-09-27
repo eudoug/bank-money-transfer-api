@@ -58,7 +58,7 @@ class CustomerBehaviorTest {
     @Throws(ExceptionHandler::class)
     fun iShouldGetAllCustomers() {
         val allCustomers = dataObjectFactory.customerDataObject.allCustomer
-        assertEquals(allCustomers.size, 0)
+        assertEquals(allCustomers.size, 3)
     }
 
     @Test

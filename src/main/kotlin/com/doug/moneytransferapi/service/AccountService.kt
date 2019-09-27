@@ -55,9 +55,8 @@ class AccountService {
     @GET
     @Path("/{accountId}/balance")
     @Throws(ExceptionHandler::class)
-    fun getBalance(@PathParam("accountId") accountId: Long) {
-        factory.accountDataObject.getAccountById(accountId)
-        return
+    fun getBalance(@PathParam("accountId") accountId: Long): Account? {
+        return factory.accountDataObject.getAccountById(accountId)
     }
 
     /**

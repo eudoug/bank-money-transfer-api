@@ -70,7 +70,7 @@ public abstract class ApplicationServiceTest {
                     CustomerService.class.getCanonicalName() + "," +
                             AccountService.class.getCanonicalName() + "," +
                             ExceptionService.class.getCanonicalName() + "," +
-                            TransactionService.class.getCanonicalName());
+                            TransferService.class.getCanonicalName());
             server.start();
         }
     }

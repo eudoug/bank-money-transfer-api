@@ -41,13 +41,12 @@ class CustomerTransaction {
 
         val that = other as CustomerTransaction?
 
-        if (currencyCode != that!!.currencyCode)
+        if (currencyCode != currencyCode)
             return false
-        if (amount != that.amount)
+        if (amount != amount)
             return false
-        return if (fromAccountId != that.fromAccountId) {
-            false
-        } else toAccountId == that.toAccountId
+        return if (fromAccountId != fromAccountId) false
+            else toAccountId == toAccountId
 
     }
 
