@@ -267,18 +267,17 @@ paths:
           description: The requested resource cannot be found
         '500':
           description: The server encountered an unexpected condition
-  /transaction:
+  /transfer/money:
     post:
       tags:
         - transaction
-      summary: Perform a money transaction
+      summary: Perform a money transfer
       description: Perform a money transaction between two different customer accounts
       responses:
         '400':
           description: Invalid resource supplied
       requestBody:
-        $ref: '#/components/requestBodies/Transaction'
-
+        $ref: '#/components/requestBodies/Transfer'
 components:
   responses:
     successResponse:
@@ -306,14 +305,14 @@ components:
       type: object
       properties:
         accountId:
-          type: string
+          type: integer
         customerName:
           type: string
         balance:
           type: integer
         currencyCode:
           type: string
-    Transaction:
+    Transfer:
       type: object
       properties:
         currencyCode:
@@ -338,8 +337,8 @@ components:
           schema:
             $ref: '#/components/schemas/Account'
       description: Account object that needs to be added on the bank
-    Transaction:
+    Transfer:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Transaction'
+            $ref: '#/components/schemas/Transfer'

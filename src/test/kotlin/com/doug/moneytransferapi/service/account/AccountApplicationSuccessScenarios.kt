@@ -4,10 +4,7 @@ import com.doug.moneytransferapi.model.Account
 import com.doug.moneytransferapi.service.ApplicationServiceTest
 import junit.framework.Assert
 import junit.framework.Assert.assertTrue
-import org.apache.http.client.methods.HttpDelete
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.client.methods.HttpPut
-import org.apache.http.client.methods.HttpUriRequest
+import org.apache.http.client.methods.*
 import org.apache.http.entity.StringEntity
 import org.apache.http.util.EntityUtils
 import org.junit.Test
@@ -65,16 +62,16 @@ class AccountApplicationSuccessScenarios : ApplicationServiceTest() {
     fun iShouldReturnSuccessWhenGetAccountBalance() {
         val uri = builder.setPath("/account/1/balance").build()
         val request = HttpGet(uri)
-        val response = client.execute(request as HttpUriRequest?)
+        val response = client.execute(request)
         val statusCode = response.statusLine.statusCode
 
-        assertEquals(statusCode,204)
+        assertEquals(statusCode,200)
 
         //assert the result
-        val jsonString = EntityUtils.toString(response.entity)
-        val balance = BigDecimal(jsonString).setScale(4, RoundingMode.HALF_EVEN)
+        val balance = EntityUtils.toString(response.entity)
+        val result = BigDecimal(balance).setScale(4, RoundingMode.HALF_EVEN)
         val dbResult = BigDecimal(300).setScale(4, RoundingMode.HALF_EVEN)
-        assertTrue(balance == dbResult)
+        assertTrue(result == dbResult)
     }
 
     /*
@@ -110,7 +107,7 @@ class AccountApplicationSuccessScenarios : ApplicationServiceTest() {
         val acc = Account("Chandra Naalar", balance, "USD")
         val jsonInString = mapper.writeValueAsString(acc)
         val entity = StringEntity(jsonInString)
-        val request = HttpPut(uri)
+        val request = HttpPost(uri)
         request.setHeader("Content-type", "application/json")
         request.entity = entity
         val response = client.execute(request)

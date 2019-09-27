@@ -6,7 +6,6 @@ import java.math.BigDecimal
 
 class CustomerTransaction {
 
-
     @JsonProperty(required = true)
     var currencyCode: String? = null
         private set
@@ -53,13 +52,13 @@ class CustomerTransaction {
     override fun hashCode(): Int {
         var result = currencyCode.hashCode()
         result = 31 * result + amount.hashCode()
-        result = 31 * result + fromAccountId!!.hashCode()
-        result = 31 * result + toAccountId!!.hashCode()
+        result = 31 * result + fromAccountId.hashCode()
+        result = 31 * result + toAccountId.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return ("CustomerTransaction{" + "currencyCode='" + currencyCode + '\''.toString() + ", amount=" + amount + ", fromAccountId="
+        return ("UserTransaction{" + "currencyCode='" + currencyCode + '\''.toString() + ", amount=" + amount + ", fromAccountId="
                 + fromAccountId + ", toAccountId=" + toAccountId + '}'.toString())
     }
 

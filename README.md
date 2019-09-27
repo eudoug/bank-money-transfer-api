@@ -60,17 +60,17 @@ To understand the API endpoints the swagger editor shows the following informati
 
 **Figure 1** - Customer Endpoints
 
-![](./document/image%201.png)
+![](./document/Picture1.png)
 
 
 **Figure 2** - Account Endpoints
 
-![](./document/image%202.png)
+![](./document/Picture2.png)
 
 
 **Figure 3** - Transaction Endpoint
 
-![](./document/image%203.png)
+![](./document/Picture3.png)
 
 
  

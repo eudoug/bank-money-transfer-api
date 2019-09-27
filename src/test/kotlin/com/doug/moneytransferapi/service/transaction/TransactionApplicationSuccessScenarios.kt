@@ -82,7 +82,7 @@ class TransactionApplicationSuccessScenarios : ApplicationServiceTest() {
     @Test
     @Throws(IOException::class, URISyntaxException::class)
     fun iShouldReturnSuccessCodeWhenTransactionEnoughFund() {
-        val uri = builder.setPath("/transaction").build()
+        val uri = builder.setPath("/transfer/money").build()
         val amount = BigDecimal(63.65).setScale(4, RoundingMode.HALF_EVEN)
         val transaction = CustomerTransaction("GBP", amount, 7L, 8L)
 

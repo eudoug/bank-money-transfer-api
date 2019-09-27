@@ -39,7 +39,7 @@ class TransactionApplicationInternalServerErrorScenarios : ApplicationServiceTes
     @Test
     @Throws(IOException::class, URISyntaxException::class)
     fun iShouldReturnInternalServerErrorWhenTransactionDifferentCurrencyCode() {
-        val uri = builder.setPath("/transaction").build()
+        val uri = builder.setPath("/transfer").build()
         val amount = BigDecimal(100).setScale(4, RoundingMode.HALF_EVEN)
         val transaction = CustomerTransaction("USD", amount, 1L, 6L)
 
@@ -82,7 +82,7 @@ class TransactionApplicationInternalServerErrorScenarios : ApplicationServiceTes
     @Test
     @Throws(IOException::class, URISyntaxException::class)
     fun iShouldReturnInternalServerErrorWhenTransferNotEnoughFund() {
-        val uri = builder.setPath("/transaction").build()
+        val uri = builder.setPath("/transfer").build()
         val amount = BigDecimal(100000).setScale(4, RoundingMode.HALF_EVEN)
         val transaction = CustomerTransaction("EUR", amount, 5L, 6L)
 

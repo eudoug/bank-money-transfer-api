@@ -24,7 +24,7 @@ enum class MoneyTransaction {
             }
             return instance.currencyCode == inputCurrencyCode
         } catch (e: Exception) {
-            log.warn("Cannot parse the input Currency Code, Validation Failed: ", e)
+            log.warn("Validation Failed: ", e)
         }
 
         return false

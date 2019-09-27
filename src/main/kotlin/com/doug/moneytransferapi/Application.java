@@ -5,6 +5,7 @@ import com.doug.moneytransferapi.model.CustomerTransaction;
 import com.doug.moneytransferapi.service.AccountService;
 import com.doug.moneytransferapi.service.CustomerService;
 import com.doug.moneytransferapi.service.ExceptionService;
+import com.doug.moneytransferapi.service.TransferService;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.*;
@@ -50,7 +51,7 @@ public class Application {
         servletHolder.setInitParameter("jersey.config.server.provider.classnames",
                 CustomerService.class.getCanonicalName() + "," + AccountService.class.getCanonicalName() + ","
                         + ExceptionService.class.getCanonicalName() + ","
-                        + CustomerTransaction.class.getCanonicalName());
+                        + TransferService.class.getCanonicalName());
         try {
             server.start();
             server.join();
