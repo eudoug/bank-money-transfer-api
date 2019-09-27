@@ -51,10 +51,6 @@ class Customer {
     }
 
     override fun toString(): String {
-        return "Customer{" +
-                "customerId=" + customerId +
-                ", customerName='" + customerName + '\''.toString() +
-                ", emailAddress='" + emailAddress + '\''.toString() +
-                '}'.toString()
+        return """Customer{customerId=$customerId, customerName='$customerName', emailAddress='$emailAddress'}"""
     }
 }

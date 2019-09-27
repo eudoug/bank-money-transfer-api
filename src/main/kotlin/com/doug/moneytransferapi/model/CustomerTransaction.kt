@@ -58,8 +58,7 @@ class CustomerTransaction {
     }
 
     override fun toString(): String {
-        return ("UserTransaction{" + "currencyCode='" + currencyCode + '\''.toString() + ", amount=" + amount + ", fromAccountId="
-                + fromAccountId + ", toAccountId=" + toAccountId + '}'.toString())
+        return """UserTransaction{currencyCode='$currencyCode', amount=$amount, fromAccountId=$fromAccountId, toAccountId=$toAccountId}"""
     }
 
 }

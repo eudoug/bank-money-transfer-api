@@ -62,11 +62,6 @@ class  Account {
     }
 
     override fun toString(): String {
-        return "Account{" +
-                "accountId=" + accountId +
-                ", customerName='" + customerName + '\''.toString() +
-                ", balance=" + balance +
-                ", currencyCode='" + currencyCode + '\''.toString() +
-                '}'.toString()
+        return """Account{accountId=$accountId, customerName='$customerName', balance=$balance, currencyCode='$currencyCode'}"""
     }
 }
